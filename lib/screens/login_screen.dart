@@ -58,12 +58,52 @@ class _LoginForm extends StatelessWidget {
           TextFormField(
             autocorrect: false,
             autofocus: false,
+            obscureText: true,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecorations.authInputDecoration(
                 labelText: 'Password',
                 hintText: '************',
                 prefixIcon: Icons.lock_open),
           ),
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
+            alignment: Alignment.topRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: const Color.fromARGB(129, 163, 159, 159)),
+              child: const Text(
+                'Olvidaste Contraseña?',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          MaterialButton(
+            disabledColor: Colors.grey,
+            elevation: 0,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color: Colors.deepOrange,
+            child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 150, vertical: 15),
+                child: const Text(
+                  'Ingresar',
+                  style: TextStyle(color: Colors.white),
+                )),
+            onPressed: () {
+              //TODO: Login Form
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          )
         ],
       )),
     );
