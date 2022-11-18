@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:w2w_app/providers/login_form_provider.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +17,14 @@ class LoginScreen extends StatelessWidget {
               height: 350,
             ),
             CardContainerLogin(
-              child: Column(children: const [
-                SizedBox(
+              child: Column(children: [
+                const SizedBox(
                   height: 20,
                 ),
-                _LoginForm()
+                ChangeNotifierProvider(
+                  create: (_) => LoginFormProvider(),
+                  child: const _LoginForm(),
+                )
               ]),
             ),
             const Text(
@@ -36,12 +40,13 @@ class LoginScreen extends StatelessWidget {
 
 class _LoginForm extends StatelessWidget {
   const _LoginForm({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
     return Container(
       child: Form(
           //TODO: mantener la referencia al key
+          key: loginForm.formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
@@ -53,6 +58,7 @@ class _LoginForm extends StatelessWidget {
                     labelText: 'Email',
                     hintText: 'example@mail.com',
                     prefixIcon: Icons.email_outlined),
+                onChanged: (value) => loginForm.email = value,
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -76,6 +82,7 @@ class _LoginForm extends StatelessWidget {
                     labelText: 'Password',
                     hintText: '************',
                     prefixIcon: Icons.lock_open),
+                onChanged: (value) => loginForm.password = value,
                 validator: (value) {
                   if (value != null && value.length >= 8) return null;
                   return 'La contraseña debe tener minimo 8 caracteres';
@@ -116,6 +123,9 @@ class _LoginForm extends StatelessWidget {
                     )),
                 onPressed: () {
                   //TODO: Login Form
+                  if (!loginForm.isValidForm()) return;
+
+                  Navigator.pushReplacementNamed(context, 'home');
                 },
               ),
               const SizedBox(

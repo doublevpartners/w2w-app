@@ -13,18 +13,18 @@ class InputDecorations {
         ),
         hintText: hintText,
         labelText: labelText,
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: const TextStyle(color: Colors.white),
         hintStyle: const TextStyle(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(50),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(50),
         ),
         filled: true,
-        fillColor: Color.fromARGB(129, 163, 159, 159));
+        fillColor: const Color.fromARGB(129, 163, 159, 159));
   }
 }
