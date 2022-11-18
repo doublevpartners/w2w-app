@@ -4,6 +4,8 @@ import 'package:w2w_app/providers/login_form_provider.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
+import '../services/services.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -127,18 +129,27 @@ class _LoginForm extends StatelessWidget {
                     : () async {
                         // quito teclado
                         FocusScope.of(context).unfocus();
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
 
                         //TODO: Login Form
                         if (!loginForm.isValidForm()) return;
 
                         loginForm.isLoading = true;
 
-                        await Future.delayed(Duration(seconds: 2));
+                        // await Future.delayed(Duration(seconds: 2));
 
                         //TODO: Validar si el login es correcto
-                        loginForm.isLoading = false;
+                        final String? errorMessage = await authService.login(
+                            loginForm.email, loginForm.password);
 
-                        Navigator.pushReplacementNamed(context, 'home');
+                        if (errorMessage == null) {
+                          Navigator.pushReplacementNamed(context, 'home');
+                        } else {
+                          // TODO: mostrar error en pantalla
+                          print(errorMessage);
+                        }
+                        loginForm.isLoading = false;
                       },
                 child: Container(
                     padding: const EdgeInsets.symmetric(
