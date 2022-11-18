@@ -13,7 +13,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       initialRoute: 'login',
-      routes: {'login': (_) => LoginScreen(), 'home': (_) => HomeScreen()},
+      routes: {
+        'login': (_) => LoginScreen(),
+        'register': (_) => RegisterScreen(),
+        'home': (_) => HomeScreen()
+      },
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: const Color.fromRGBO(36, 56, 114, 1)),
     );

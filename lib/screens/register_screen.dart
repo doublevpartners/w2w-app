@@ -4,8 +4,8 @@ import 'package:w2w_app/providers/login_form_provider.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
               ]),
             ),
             const Text(
-              'O Ingresa con',
+              'O Registrate con',
               style: TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            FooterLogin()
+            const FooterRegister()
           ],
         ),
       ),
@@ -99,20 +99,6 @@ class _LoginForm extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              Container(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: const Color.fromARGB(129, 163, 159, 159)),
-                  child: const Text(
-                    'Olvidaste Contraseña?',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
               const SizedBox(
                 height: 15,
               ),
@@ -144,7 +130,7 @@ class _LoginForm extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 150, vertical: 15),
                     child: Text(
-                      loginForm.isLoading ? 'Por favor espere...' : 'Ingresar',
+                      loginForm.isLoading ? 'Por favor espere...' : 'Registrar',
                       style: const TextStyle(color: Colors.white),
                     )),
               ),
