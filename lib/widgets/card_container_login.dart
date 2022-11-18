@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+class CardContainerLogin extends StatelessWidget {
+  final Widget child;
+  const CardContainerLogin({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20),
+        decoration: _createCardShape(),
+        child: child,
+      ),
+    );
+  }
+
+  BoxDecoration _createCardShape() => const BoxDecoration();
+}
