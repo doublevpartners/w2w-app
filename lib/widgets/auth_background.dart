@@ -25,13 +25,19 @@ class _HeaderLogin extends StatelessWidget {
           Icon(
             Icons.person_pin,
             size: 100,
+            color: Colors.white,
           ),
           Text(
             '¡Bienvenido!',
-            style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          Text('Tenemos las mejores \n        rutas para ti!',
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.w400))
+          Text(
+            'Tenemos las mejores\nrutas para ti!',
+            style: TextStyle(
+                fontSize: 40, fontWeight: FontWeight.w400, color: Colors.white),
+            textAlign: TextAlign.center,
+          )
         ]),
       ),
     );

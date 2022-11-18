@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: 'login',
       routes: {'login': (_) => LoginScreen(), 'home': (_) => HomeScreen()},
+      theme: ThemeData.light()
+          .copyWith(scaffoldBackgroundColor: Color.fromRGBO(36, 56, 114, 1)),
     );
   }
 }

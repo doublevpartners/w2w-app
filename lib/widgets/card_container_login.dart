@@ -7,7 +7,7 @@ class CardContainerLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(20),
@@ -17,5 +17,6 @@ class CardContainerLogin extends StatelessWidget {
     );
   }
 
-  BoxDecoration _createCardShape() => const BoxDecoration();
+  BoxDecoration _createCardShape() => const BoxDecoration(
+      border: Border(bottom: BorderSide(color: Colors.white)));
 }
