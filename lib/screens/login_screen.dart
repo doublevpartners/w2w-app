@@ -10,12 +10,16 @@ class LoginScreen extends StatelessWidget {
         body: AuthBackgroud(
       child: SingleChildScrollView(
         child: Column(
-          children: const [
-            SizedBox(
+          children: [
+            const SizedBox(
               height: 300,
             ),
             CardContainerLogin(
-              child: Text('hola'),
+              child: Column(children: const [
+                SizedBox(
+                  height: 10,
+                )
+              ]),
             )
           ],
         ),

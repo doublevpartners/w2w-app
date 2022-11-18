@@ -28,10 +28,10 @@ class _HeaderLogin extends StatelessWidget {
           ),
           Text(
             '¡Bienvenido!',
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 55, fontWeight: FontWeight.bold),
           ),
           Text('Tenemos las mejores \n        rutas para ti!',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400))
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.w400))
         ]),
       ),
     );
