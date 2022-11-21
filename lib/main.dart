@@ -7,13 +7,15 @@ import 'screens/screens.dart';
 void main() => runApp(AppState());
 
 class AppState extends StatelessWidget {
+  const AppState({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
@@ -28,14 +30,14 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: 'checking',
       routes: {
-        'login': (_) => LoginScreen(),
-        'register': (_) => RegisterScreen(),
-        'home': (_) => HomeScreen(),
-        'checking': (_) => CheckAuthScreen()
+        'login': (_) => const LoginScreen(),
+        'register': (_) => const RegisterScreen(),
+        'home': (_) => const HomeScreen(),
+        'checking': (_) => const CheckAuthScreen()
       },
       scaffoldMessengerKey: NotificationService.messegarKey,
       theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: const Color.fromRGBO(36, 56, 114, 1)),
+          scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1)),
     );
   }
 }
