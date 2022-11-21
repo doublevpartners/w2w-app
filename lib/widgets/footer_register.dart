@@ -17,7 +17,7 @@ class FooterRegister extends StatelessWidget {
           ),
           child: const Text(
             '¿Ya Tienes Cuenta?',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),
         TextButton(
@@ -30,7 +30,7 @@ class FooterRegister extends StatelessWidget {
           child: const Text(
             'Inicia Sesion',
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),
         )
       ],

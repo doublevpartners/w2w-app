@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         'home': (_) => HomeScreen(),
         'checking': (_) => CheckAuthScreen()
       },
+      scaffoldMessengerKey: NotificationService.messegarKey,
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: const Color.fromRGBO(36, 56, 114, 1)),
     );

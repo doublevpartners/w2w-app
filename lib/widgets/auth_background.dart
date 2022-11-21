@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AuthBackgroud extends StatelessWidget {
   final Widget child;
@@ -20,24 +21,25 @@ class _HeaderLogin extends StatelessWidget {
     return SafeArea(
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(top: 30),
-        child: Column(children: const [
-          Icon(
-            Icons.person_pin,
-            size: 100,
-            color: Colors.white,
+        margin: const EdgeInsets.only(top: 20),
+        child: Column(children: [
+          SvgPicture.asset(
+            'assets/Logo.svg',
+            width: 100,
+            semanticsLabel: 'World To Walk',
+            fit: BoxFit.contain,
           ),
-          Text(
+          const Text(
             '¡Bienvenido!',
             style: TextStyle(
-                fontSize: 60, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),
           ),
-          Text(
+          const Text(
             'Tenemos las mejores\nrutas para ti!',
             style: TextStyle(
-                fontSize: 40, fontWeight: FontWeight.w400, color: Colors.white),
+                fontSize: 30, fontWeight: FontWeight.w400, color: Colors.white),
             textAlign: TextAlign.center,
-          )
+          ),
         ]),
       ),
     );

@@ -17,7 +17,10 @@ class FooterLogin extends StatelessWidget {
           ),
           child: const Text(
             '¿No tienes Cuenta?',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
           ),
         ),
         TextButton(
@@ -30,7 +33,7 @@ class FooterLogin extends StatelessWidget {
           child: const Text(
             'Inscribete',
             style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
           ),
         )
       ],

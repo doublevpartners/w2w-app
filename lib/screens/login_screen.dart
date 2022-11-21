@@ -11,37 +11,43 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AuthBackgroud(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 350,
-            ),
-            CardContainerLogin(
-              child: Column(children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(),
-                  child: const _LoginForm(),
-                )
-              ]),
-            ),
-            const Text(
-              'O Ingresa con',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const RowContainerLogin(),
-            const SizedBox(
-              height: 30,
-            ),
-            FooterLogin()
-          ],
+        body: Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: const AssetImage("assets/imageLogin.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5), BlendMode.darken)),
+      ),
+      child: AuthBackgroud(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 330,
+              ),
+              CardContainerLogin(
+                child: Column(children: [
+                  ChangeNotifierProvider(
+                    create: (_) => LoginFormProvider(),
+                    child: const _LoginForm(),
+                  )
+                ]),
+              ),
+              const Text(
+                'O Ingresa con',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const RowContainerLogin(),
+              const SizedBox(
+                height: 10,
+              ),
+              FooterLogin()
+            ],
+          ),
         ),
       ),
     ));
@@ -122,8 +128,7 @@ class _LoginForm extends StatelessWidget {
                 disabledColor: Colors.grey,
                 elevation: 0,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                color: Colors.deepOrange,
+                    borderRadius: BorderRadius.circular(55)),
                 onPressed: loginForm.isLoading
                     ? null
                     : () async {
@@ -148,19 +153,32 @@ class _LoginForm extends StatelessWidget {
                         } else {
                           // TODO: mostrar error en pantalla
                           print(errorMessage);
+                          NotificationService.showSnackbar(errorMessage);
+                          loginForm.isLoading = false;
                         }
-                        loginForm.isLoading = false;
                       },
                 child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 150, vertical: 15),
+                    width: double.maxFinite,
+                    decoration: !loginForm.isLoading
+                        ? BoxDecoration(
+                            gradient: const LinearGradient(colors: [
+                              Color.fromRGBO(36, 56, 114, 1),
+                              Color.fromRGBO(41, 41, 41, 1)
+                            ]),
+                            borderRadius: BorderRadius.circular(55))
+                        : null,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                     child: Text(
-                      loginForm.isLoading ? 'Por favor espere...' : 'Ingresar',
+                      loginForm.isLoading
+                          ? 'Por favor espere...'
+                          : 'Iniciar Sesión',
                       style: const TextStyle(color: Colors.white),
+                      textAlign: TextAlign.center,
                     )),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               )
             ],
           )),

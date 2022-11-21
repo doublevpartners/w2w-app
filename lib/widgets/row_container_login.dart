@@ -16,7 +16,7 @@ class RowContainerLogin extends StatelessWidget {
           color: Colors.white,
           onPressed: () {},
           child: const CircleAvatar(
-            maxRadius: 40,
+            maxRadius: 25,
             backgroundImage: NetworkImage(
                 'https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo.png'),
           ),
@@ -32,7 +32,7 @@ class RowContainerLogin extends StatelessWidget {
           color: Colors.white,
           onPressed: () {},
           child: const CircleAvatar(
-            maxRadius: 40,
+            maxRadius: 25,
             backgroundImage: NetworkImage(
                 'https://i.pinimg.com/originals/b2/46/d8/b246d896bd1a2e359c2227f6823bed56.jpg'),
           ),
@@ -48,7 +48,7 @@ class RowContainerLogin extends StatelessWidget {
           color: Colors.white,
           onPressed: () {},
           child: const CircleAvatar(
-            maxRadius: 40,
+            maxRadius: 25,
             backgroundImage: NetworkImage(
                 'https://w7.pngwing.com/pngs/589/546/png-transparent-apple-logo-new-york-city-brand-computer-apple-company-computer-logo.png'),
           ),
