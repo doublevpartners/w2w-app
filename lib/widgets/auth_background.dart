@@ -7,7 +7,7 @@ class AuthBackgroud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Stack(children: [_HeaderLogin(), this.child]),
@@ -21,7 +21,7 @@ class _HeaderLogin extends StatelessWidget {
     return SafeArea(
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(top: 20),
+        margin: const EdgeInsets.only(top: 30),
         child: Column(children: [
           SvgPicture.asset(
             'assets/Logo.svg',

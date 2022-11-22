@@ -54,12 +54,13 @@ class RegisterScreen extends StatelessWidget {
 }
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
+  const _LoginForm();
   @override
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
     return Container(
       child: Form(
+          // ignore: todo
           //TODO: mantener la referencia al key
           key: loginForm.formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,

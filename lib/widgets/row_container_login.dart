@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:w2w_app/providers/providers.dart';
 
 class RowContainerLogin extends StatelessWidget {
   const RowContainerLogin({super.key});
@@ -14,7 +16,16 @@ class RowContainerLogin extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.white,
-          onPressed: () {},
+          onPressed: () async {
+            // await AuthGoogleServices.signInWithGoogle(context: context);
+            // Navigator.pushReplacementNamed(context, 'home');
+
+            final provider =
+                Provider.of<GoogleSignInProvider>(context, listen: false);
+            await provider.signInWithGoogle(context: context);
+            Future.microtask(
+                () => Navigator.pushReplacementNamed(context, 'home'));
+          },
           child: const CircleAvatar(
             maxRadius: 25,
             backgroundImage: NetworkImage(

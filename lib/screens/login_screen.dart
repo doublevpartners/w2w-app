@@ -1,6 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:w2w_app/providers/login_form_provider.dart';
+import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
@@ -55,17 +57,19 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm({super.key});
+  const _LoginForm();
   @override
   Widget build(BuildContext context) {
     final loginForm = Provider.of<LoginFormProvider>(context);
     return Form(
+        // ignore: todo
         //TODO: mantener la referencia al key
         key: loginForm.formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
             TextFormField(
+              style: const TextStyle(color: Colors.white),
               autocorrect: false,
               autofocus: false,
               keyboardType: TextInputType.emailAddress,
@@ -89,14 +93,16 @@ class _LoginForm extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
+              style: const TextStyle(color: Colors.white),
               autocorrect: false,
               autofocus: false,
               obscureText: true,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecorations.authInputDecoration(
-                  labelText: 'Password',
-                  hintText: '************',
-                  prefixIcon: Icons.lock_open),
+                labelText: 'Password',
+                hintText: '************',
+                prefixIcon: Icons.lock_open,
+              ),
               onChanged: (value) => loginForm.password = value,
               validator: (value) {
                 if (value != null && value.length >= 8) return null;
@@ -136,6 +142,7 @@ class _LoginForm extends StatelessWidget {
                       final authService =
                           Provider.of<AuthService>(context, listen: false);
 
+                      // ignore: todo
                       //TODO: Login Form
                       if (!loginForm.isValidForm()) return;
 
@@ -143,6 +150,7 @@ class _LoginForm extends StatelessWidget {
 
                       // await Future.delayed(Duration(seconds: 2));
 
+                      // ignore: todo
                       //TODO: Validar si el login es correcto
                       final String? errorMessage = await authService.login(
                           loginForm.email, loginForm.password);

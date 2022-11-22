@@ -24,6 +24,10 @@ class InputDecorations {
           borderSide: const BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(50),
         ),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(50),
+        ),
         filled: true,
         fillColor: const Color.fromARGB(129, 163, 159, 159));
   }
