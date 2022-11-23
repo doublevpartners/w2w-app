@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/screens/screens.dart';
 import 'package:w2w_app/services/services.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 
 class CheckAuthScreen extends StatelessWidget {
   const CheckAuthScreen({super.key});
@@ -21,7 +22,7 @@ class CheckAuthScreen extends StatelessWidget {
               image: const AssetImage("assets/splashScreen.png"),
               fit: BoxFit.cover,
               colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.2), BlendMode.darken)),
+                  AppTheme.secondary.withOpacity(0.2), BlendMode.darken)),
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -98,19 +99,16 @@ class _BodySplash extends StatelessWidget {
         Container(
           margin:
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-          child: Column(children: const [
+          child: Column(children: [
             AutoSizeText(
               'Se tu Propio Guia',
-              style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+              style: Theme.of(context).textTheme.headline5,
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            SpinKitCircle(
-              color: Colors.white,
+            const SpinKitCircle(
+              color: AppTheme.third,
             ),
           ]),
         )

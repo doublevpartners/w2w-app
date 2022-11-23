@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/google_sign_in_provider.dart';
 import 'package:w2w_app/services/services.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 
 import 'screens/screens.dart';
 
@@ -44,8 +45,7 @@ class MyApp extends StatelessWidget {
         'slideshow': (_) => const SlideShowScreen()
       },
       scaffoldMessengerKey: NotificationService.messegarKey,
-      theme: ThemeData.light().copyWith(
-          scaffoldBackgroundColor: const Color.fromRGBO(255, 255, 255, 1)),
+      theme: AppTheme.lightTheme,
     );
   }
 }

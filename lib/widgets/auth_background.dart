@@ -1,5 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 
 class AuthBackgroud extends StatelessWidget {
   final Widget child;
@@ -27,17 +29,13 @@ class _HeaderLogin extends StatelessWidget {
             'assets/Logo.svg',
             width: 100,
             semanticsLabel: 'World To Walk',
-            fit: BoxFit.contain,
+            fit: BoxFit.cover,
           ),
-          const Text(
-            '¡Bienvenido!',
-            style: TextStyle(
-                fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          const Text(
+          AutoSizeText('¡Bienvenido!',
+              style: Theme.of(context).textTheme.headline3),
+          AutoSizeText(
             'Tenemos las mejores\nrutas para ti!',
-            style: TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w400, color: Colors.white),
+            style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
         ]),

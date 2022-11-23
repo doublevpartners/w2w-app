@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
@@ -69,7 +70,7 @@ class _LoginForm extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: AppTheme.third),
               autocorrect: false,
               autofocus: false,
               keyboardType: TextInputType.emailAddress,
@@ -93,7 +94,7 @@ class _LoginForm extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: AppTheme.third),
               autocorrect: false,
               autofocus: false,
               obscureText: true,
@@ -119,7 +120,7 @@ class _LoginForm extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: const Color.fromARGB(129, 163, 159, 159)),
+                    color: const Color.fromARGB(39, 163, 159, 159)),
                 child: const Text(
                   'Olvidaste Contraseña?',
                   style: TextStyle(color: Colors.white),
@@ -130,7 +131,7 @@ class _LoginForm extends StatelessWidget {
               height: 15,
             ),
             MaterialButton(
-              disabledColor: Colors.grey,
+              disabledColor: Theme.of(context).disabledColor,
               elevation: 0,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(55)),
@@ -169,10 +170,8 @@ class _LoginForm extends StatelessWidget {
                   width: double.maxFinite,
                   decoration: !loginForm.isLoading
                       ? BoxDecoration(
-                          gradient: const LinearGradient(colors: [
-                            Color.fromRGBO(36, 56, 114, 1),
-                            Color.fromRGBO(41, 41, 41, 1)
-                          ]),
+                          gradient: const LinearGradient(
+                              colors: [AppTheme.primary, AppTheme.secondary]),
                           borderRadius: BorderRadius.circular(55))
                       : null,
                   padding:
@@ -181,7 +180,7 @@ class _LoginForm extends StatelessWidget {
                     loginForm.isLoading
                         ? 'Por favor espere...'
                         : 'Iniciar Sesión',
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: AppTheme.third),
                     textAlign: TextAlign.center,
                   )),
             ),

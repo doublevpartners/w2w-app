@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 
 class CardContainerLogin extends StatelessWidget {
   final Widget child;
@@ -18,5 +19,5 @@ class CardContainerLogin extends StatelessWidget {
   }
 
   BoxDecoration _createCardShape() => const BoxDecoration(
-      border: Border(bottom: BorderSide(color: Colors.white)));
+      border: Border(bottom: BorderSide(color: AppTheme.third)));
 }

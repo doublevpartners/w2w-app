@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/login_form_provider.dart';
 import 'package:w2w_app/services/services.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
@@ -147,17 +148,15 @@ class _LoginForm extends StatelessWidget {
                     width: double.infinity,
                     decoration: !loginForm.isLoading
                         ? BoxDecoration(
-                            gradient: const LinearGradient(colors: [
-                              Color.fromRGBO(36, 56, 114, 1),
-                              Color.fromRGBO(41, 41, 41, 1)
-                            ]),
+                            gradient: const LinearGradient(
+                                colors: [AppTheme.primary, AppTheme.secondary]),
                             borderRadius: BorderRadius.circular(55))
                         : null,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                     child: Text(
                       loginForm.isLoading ? 'Por favor espere...' : 'Registrar',
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: AppTheme.third),
                       textAlign: TextAlign.center,
                     )),
               ),

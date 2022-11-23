@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
+      backgroundColor: Colors.blue,
       body: Center(
         child: Row(children: [
           IconButton(

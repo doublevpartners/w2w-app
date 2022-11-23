@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:w2w_app/theme/app_theme.dart';
 
 class FooterLogin extends StatelessWidget {
   const FooterLogin({super.key});
@@ -33,7 +34,9 @@ class FooterLogin extends StatelessWidget {
           child: const Text(
             'Inscribete',
             style: TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                color: AppTheme.third,
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
           ),
         )
       ],

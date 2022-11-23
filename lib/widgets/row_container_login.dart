@@ -24,7 +24,7 @@ class RowContainerLogin extends StatelessWidget {
                 Provider.of<GoogleSignInProvider>(context, listen: false);
             await provider.signInWithGoogle(context: context);
             Future.microtask(
-                () => Navigator.pushReplacementNamed(context, 'home'));
+                () => Navigator.pushReplacementNamed(context, 'slidesow'));
           },
           child: const CircleAvatar(
             maxRadius: 25,
