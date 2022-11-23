@@ -10,7 +10,7 @@ class AppTheme {
     textTheme: const TextTheme(
       headline1: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.bold,
         fontSize: 60,
       ),
       headline2: TextStyle(
@@ -25,7 +25,7 @@ class AppTheme {
       ),
       headline4: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         fontSize: 32,
       ),
       headline5: TextStyle(
@@ -40,5 +40,28 @@ class AppTheme {
       ),
     ),
     disabledColor: Colors.grey,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: secondary,
+      elevation: 0,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      hintStyle: const TextStyle(
+          color: third, fontSize: 20, fontWeight: FontWeight.w400),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(50),
+      ),
+      labelStyle: const TextStyle(color: third),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(50),
+      ),
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(50),
+      ),
+      filled: true,
+      fillColor: const Color.fromARGB(129, 163, 159, 159),
+    ),
   );
 }
