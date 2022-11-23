@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +10,11 @@ class CheckAuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final authService = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       body: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: const AssetImage("assets/splashScreen.png"),
@@ -19,50 +22,57 @@ class CheckAuthScreen extends StatelessWidget {
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.2), BlendMode.darken)),
         ),
-        child: Column(
-          children: [
-            const _BodySplash(),
-            Center(
-              child: FutureBuilder(
-                future: authService.readToken(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Text('');
-                  }
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: size.height * 0.3),
+                child: const _BodySplash(),
+              ),
+              Center(
+                child: FutureBuilder(
+                  future: authService.readToken(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Text('');
+                    }
 
-                  if (snapshot.data == '') {
-                    Future.microtask(() async {
-                      // Navigator.of(context).pushReplacementNamed('home');
-                      // * Important
-                      // await Future.delayed(const Duration(seconds: 5));
+                    if (snapshot.data == '') {
+                      Future.microtask(() async {
+                        // Navigator.of(context).pushReplacementNamed('home');
+                        // * Important
+                        // await Future.delayed(const Duration(seconds: 5));
 
-                      Navigator.pushReplacement(
-                        context,
-                        PageRouteBuilder(
-                            pageBuilder: (_, __, ___) => const LoginScreen(),
-                            transitionDuration: const Duration(seconds: 0)),
-                      );
-                    });
-                  } else {
-                    Future.microtask(() async {
-                      // Navigator.of(context).pushReplacementNamed('home');
-                      // * Important
-                      // await Future.delayed(const Duration(seconds: 5));
-
-                      Navigator.pushReplacement(
+                        Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => const HomeScreen(),
-                              transitionDuration: const Duration(seconds: 0)));
-                    });
-                  }
+                              pageBuilder: (_, __, ___) => const LoginScreen(),
+                              transitionDuration: const Duration(seconds: 0)),
+                        );
+                      });
+                    } else {
+                      Future.microtask(() async {
+                        // Navigator.of(context).pushReplacementNamed('home');
+                        // * Important
+                        // await Future.delayed(const Duration(seconds: 5));
 
-                  return Container();
-                },
+                        Navigator.pushReplacement(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (_, __, ___) =>
+                                    const SlideShowScreen(),
+                                transitionDuration:
+                                    const Duration(seconds: 0)));
+                      });
+                    }
+
+                    return Container();
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -78,27 +88,29 @@ class _BodySplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 350,
-        ),
         SvgPicture.asset(
           'assets/Logo.svg',
-          width: 200,
+          width: MediaQuery.of(context).size.width * 0.6,
           semanticsLabel: 'World To Walk',
           fit: BoxFit.contain,
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          'Se tu Propio Guia',
-          style: TextStyle(
-              fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        const SizedBox(
-          height: 100,
-        ),
-        const CircularProgressIndicator(),
+        Container(
+          margin:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
+          child: Column(children: const [
+            AutoSizeText(
+              'Se tu Propio Guia',
+              style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            CircularProgressIndicator(),
+          ]),
+        )
       ],
     );
   }

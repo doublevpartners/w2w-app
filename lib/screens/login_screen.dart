@@ -156,7 +156,7 @@ class _LoginForm extends StatelessWidget {
                           loginForm.email, loginForm.password);
 
                       if (errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, 'home');
+                        Navigator.pushReplacementNamed(context, 'slideshow');
                       } else {
                         // TODO: mostrar error en pantalla
                         print(errorMessage);
