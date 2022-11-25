@@ -32,6 +32,7 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.white,
           onPressed: () async {
+            // * Version 1.0.0
             // await AuthGoogleServices.signInWithGoogle(context: context);
             // Navigator.pushReplacementNamed(context, 'home');
 
@@ -58,7 +59,9 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+            handleFacebookSignIn();
+          },
           child: const CircleAvatar(
             maxRadius: 25,
             backgroundImage: NetworkImage(
@@ -119,6 +122,49 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
                         .saveDataToSharedPreferences()
                         .then((value) => sp.setSignIn().then((value) {
                               googleController.success();
+                              Navigator.pushReplacementNamed(
+                                  context, 'slideshow');
+                            })));
+                  }
+                })
+              }
+          });
+    }
+  }
+
+  Future handleFacebookSignIn() async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackBar(context, "Check your Internet connection", Colors.red);
+      facebookController.reset();
+    } else {
+      await sp.signInWithFacebook().then((value) => {
+            if (sp.hasError == true)
+              {
+                openSnackBar(context, sp.errorCode.toString(), Colors.red),
+                googleController.reset(),
+              }
+            else
+              {
+                // checking wheter user exists or not
+                sp.checkUserExists().then((value) async {
+                  if (value == true) {
+                    // user exists
+                    await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                        .saveDataToSharedPreferences()
+                        .then((value) => sp.setSignIn().then((value) {
+                              facebookController.success();
+                              handleAfterSignIn();
+                            })));
+                  } else {
+                    // user not exists
+                    sp.saveDataToFirestore().then((value) => sp
+                        .saveDataToSharedPreferences()
+                        .then((value) => sp.setSignIn().then((value) {
+                              facebookController.success();
                               Navigator.pushReplacementNamed(
                                   context, 'slideshow');
                             })));
