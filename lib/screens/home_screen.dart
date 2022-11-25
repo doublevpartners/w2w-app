@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 
 import '../services/services.dart';
@@ -11,14 +12,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sp = context.read<SignInProvider>();
     final size = MediaQuery.of(context).size;
     final authService = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _FloatingButtonStyle(
-        authService: authService,
-        size: size,
-      ),
+      floatingActionButton:
+          _FloatingButtonStyle(size: size, sp: sp, authService: authService),
       body: Stack(
         children: [
           Container(
@@ -35,7 +35,12 @@ class HomeScreen extends StatelessWidget {
           Positioned(
             top: size.height * 0.8,
             right: size.width * 0,
-            child: ButtonLogin(size: size),
+            child:
+                // ignore: todo
+                //TODO: sp.isSignedIn == false ? ButtonLogin(size: size) : Container(),
+                ButtonLogin(
+              size: size,
+            ),
           ),
         ],
       ),
@@ -75,7 +80,7 @@ class _BodyHome extends StatelessWidget {
             ),
             Positioned(
               top: size.height * 0.15,
-              right: size.width * 0.1,
+              left: size.width * 0.4,
               child: Column(
                 children: [
                   AutoSizeText(
@@ -120,7 +125,9 @@ class ButtonLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       padding: EdgeInsets.zero,
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacementNamed(context, 'login');
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
         decoration: const BoxDecoration(
@@ -224,14 +231,16 @@ class _SearchInput extends StatelessWidget {
 }
 
 class _FloatingButtonStyle extends StatelessWidget {
-  final AuthService authService;
   const _FloatingButtonStyle({
     Key? key,
     required this.size,
     required this.authService,
+    required this.sp,
   }) : super(key: key);
 
   final Size size;
+  final SignInProvider sp;
+  final AuthService authService;
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +249,9 @@ class _FloatingButtonStyle extends StatelessWidget {
       width: size.width * 0.2,
       child: FloatingActionButton(
         onPressed: () {
-          authService.logout();
+          // authService.logout();
+          // Navigator.pushReplacementNamed(context, 'login');
+          sp.userSignOut();
           Navigator.pushReplacementNamed(context, 'login');
         },
         child: Container(

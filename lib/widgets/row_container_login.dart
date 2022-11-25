@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:w2w_app/providers/providers.dart';
+import 'package:w2w_app/screens/home_screen.dart';
+import 'package:w2w_app/utils/next_screen.dart';
+import 'package:w2w_app/utils/snack_bars.dart';
 
-class RowContainerLogin extends StatelessWidget {
+class RowContainerLogin extends StatefulWidget {
   const RowContainerLogin({super.key});
 
   @override
+  State<RowContainerLogin> createState() => _RowContainerLoginState();
+}
+
+class _RowContainerLoginState extends State<RowContainerLogin> {
+  final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
+  final RoundedLoadingButtonController googleController =
+      RoundedLoadingButtonController();
+  final RoundedLoadingButtonController facebookController =
+      RoundedLoadingButtonController();
+  @override
   Widget build(BuildContext context) {
     return Row(
+      key: _scaffoldKey,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         MaterialButton(
@@ -20,11 +35,13 @@ class RowContainerLogin extends StatelessWidget {
             // await AuthGoogleServices.signInWithGoogle(context: context);
             // Navigator.pushReplacementNamed(context, 'home');
 
-            final provider =
-                Provider.of<GoogleSignInProvider>(context, listen: false);
-            await provider.signInWithGoogle(context: context);
-            Future.microtask(
-                () => Navigator.pushReplacementNamed(context, 'home'));
+            // final provider =
+            //     Provider.of<GoogleSignInProvider>(context, listen: false);
+            // await provider.signInWithGoogle(context: context);
+            // Future.microtask(
+            //     () => Navigator.pushReplacementNamed(context, 'home'));
+
+            await handleGoogleSignIn();
           },
           child: const CircleAvatar(
             maxRadius: 25,
@@ -66,5 +83,56 @@ class RowContainerLogin extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Future handleGoogleSignIn() async {
+    final sp = context.read<SignInProvider>();
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternetConnection();
+
+    if (ip.hasInternet == false) {
+      openSnackBar(context, "Check your Internet connection", Colors.red);
+      googleController.reset();
+      // facebookController.reset();
+    } else {
+      await sp.signInWithGoogle().then((value) => {
+            if (sp.hasError == true)
+              {
+                openSnackBar(context, sp.errorCode.toString(), Colors.red),
+                googleController.reset(),
+              }
+            else
+              {
+                // checking wheter user exists or not
+                sp.checkUserExists().then((value) async {
+                  if (value == true) {
+                    // user exists
+                    await sp.getUserDataFromFirestore(sp.uid).then((value) => sp
+                        .saveDataToSharedPreferences()
+                        .then((value) => sp.setSignIn().then((value) {
+                              googleController.success();
+                              handleAfterSignIn();
+                            })));
+                  } else {
+                    // user not exists
+                    sp.saveDataToFirestore().then((value) => sp
+                        .saveDataToSharedPreferences()
+                        .then((value) => sp.setSignIn().then((value) {
+                              googleController.success();
+                              Navigator.pushReplacementNamed(
+                                  context, 'slideshow');
+                            })));
+                  }
+                })
+              }
+          });
+    }
+  }
+
+  // handle after sign
+  handleAfterSignIn() {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+      nextScreenReplace(context, const HomeScreen());
+    });
   }
 }
