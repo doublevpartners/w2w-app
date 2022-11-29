@@ -158,7 +158,7 @@ class _LoginForm extends StatelessWidget {
                         // TODO: mostrar error en pantalla
                         print(errorMessage);
                         NotificationService.showSnackbar(
-                            '$errorMessage Correo ó Contraseña Invalido');
+                            'Correo ó Contraseña Invalido');
                         loginForm.isLoading = false;
                       }
                     },

@@ -45,7 +45,8 @@ class MyApp extends StatelessWidget {
         'home': (_) => const HomeScreen(),
         'checking': (_) => const CheckAuthScreen(),
         'slideshow': (_) => const SlideShowScreen(),
-        'splashscreen': (_) => const SplashScreen()
+        'splashscreen': (_) => const SplashScreen(),
+        'cities': (_) => const CitiesScreen(),
       },
       scaffoldMessengerKey: NotificationService.messegarKey,
       theme: AppTheme.lightTheme,

@@ -44,8 +44,9 @@ class CheckAuthScreen extends StatelessWidget {
                       Future.microtask(() async {
                         // Navigator.of(context).pushReplacementNamed('home');
                         // * Important
-                        // await Future.delayed(const Duration(seconds: 5));
+                        await Future.delayed(const Duration(seconds: 2));
 
+                        // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(
                           context,
                           PageRouteBuilder(
@@ -57,8 +58,9 @@ class CheckAuthScreen extends StatelessWidget {
                       Future.microtask(() async {
                         // Navigator.of(context).pushReplacementNamed('home');
                         // * Important
-                        // await Future.delayed(const Duration(seconds: 5));
+                        await Future.delayed(const Duration(seconds: 2));
 
+                        // ignore: use_build_context_synchronously
                         Navigator.pushReplacement(
                             context,
                             PageRouteBuilder(

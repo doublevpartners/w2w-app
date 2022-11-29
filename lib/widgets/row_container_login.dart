@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:w2w_app/config/config.dart';
 import 'package:w2w_app/providers/providers.dart';
-import 'package:w2w_app/screens/home_screen.dart';
+import 'package:w2w_app/screens/screens.dart';
 import 'package:w2w_app/utils/next_screen.dart';
 import 'package:w2w_app/utils/snack_bars.dart';
 
@@ -181,7 +181,7 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
   // handle after sign
   handleAfterSignIn() {
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      nextScreenReplace(context, const HomeScreen());
+      nextScreenReplace(context, const SplashScreen());
     });
   }
 }

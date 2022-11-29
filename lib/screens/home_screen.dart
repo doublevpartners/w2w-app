@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/theme/app_theme.dart';
+import 'package:w2w_app/widgets/widgets.dart';
 
 import '../services/services.dart';
 
@@ -17,8 +18,7 @@ class HomeScreen extends StatelessWidget {
     final authService = Provider.of<AuthService>(context, listen: false);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          _FloatingButtonStyle(size: size, sp: sp, authService: authService),
+      floatingActionButton: FloatingButtonHome(size: size),
       body: Stack(
         children: [
           Container(
@@ -38,9 +38,7 @@ class HomeScreen extends StatelessWidget {
             child:
                 // ignore: todo
                 //TODO: sp.isSignedIn == false ? ButtonLogin(size: size) : Container(),
-                ButtonLogin(
-              size: size,
-            ),
+                ButtonLogin(size: size, sp: sp),
           ),
         ],
       ),
@@ -117,16 +115,19 @@ class ButtonLogin extends StatelessWidget {
   const ButtonLogin({
     Key? key,
     required this.size,
+    required this.sp,
   }) : super(key: key);
 
   final Size size;
+  final SignInProvider sp;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       padding: EdgeInsets.zero,
       onPressed: () {
-        Navigator.pushReplacementNamed(context, 'login');
+        sp.userSignOut();
+        Navigator.pushReplacementNamed(context, 'splashscreen');
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -144,7 +145,7 @@ class ButtonLogin extends StatelessWidget {
         ),
         child: const AutoSizeText(
           'Login',
-          style: TextStyle(color: AppTheme.third, fontSize: 20),
+          style: TextStyle(color: AppTheme.third, fontSize: 15),
           textAlign: TextAlign.center,
         ),
       ),
@@ -167,17 +168,15 @@ class _ButtonsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: size.height * 0.52),
+      margin: EdgeInsets.only(top: size.height * 0.48),
       child: Column(children: [
         MaterialButton(
-          padding: const EdgeInsets.symmetric(vertical: 25),
+          padding: EdgeInsets.all(size.height * 0.01),
           color: const Color.fromARGB(129, 163, 159, 159),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
+          shape: CircleBorder(),
           child: SvgPicture.asset(
             svg,
-            width: size.width * 0.05,
+            width: size.width * 0.07,
           ),
           onPressed: () {},
         ),
@@ -186,7 +185,7 @@ class _ButtonsHome extends StatelessWidget {
         ),
         AutoSizeText(
           text,
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 15),
         )
       ]),
     );
@@ -205,7 +204,7 @@ class _SearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: size.height * 0.3, left: size.width * 0.05),
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.04),
+      padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
       width: size.width * 0.9,
       decoration: const BoxDecoration(
         border: Border(
@@ -215,56 +214,12 @@ class _SearchInput extends StatelessWidget {
       child: TextFormField(
         cursorColor: AppTheme.third,
         style: const TextStyle(color: AppTheme.third),
-        textAlign: TextAlign.center,
         decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 80, vertical: 30),
           hintText: 'Elige tu Ciudad',
           prefixIcon: Icon(
             Icons.search,
             color: AppTheme.third,
-            size: 30,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FloatingButtonStyle extends StatelessWidget {
-  const _FloatingButtonStyle({
-    Key? key,
-    required this.size,
-    required this.authService,
-    required this.sp,
-  }) : super(key: key);
-
-  final Size size;
-  final SignInProvider sp;
-  final AuthService authService;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: size.height * 0.1,
-      width: size.width * 0.2,
-      child: FloatingActionButton(
-        onPressed: () {
-          // authService.logout();
-          // Navigator.pushReplacementNamed(context, 'login');
-          sp.userSignOut();
-          Navigator.pushReplacementNamed(context, 'login');
-        },
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                colors: [AppTheme.primary, AppTheme.secondary]),
-            borderRadius: BorderRadius.circular(55),
-          ),
-          child: const Icon(
-            Icons.home_outlined,
-            size: 50,
+            size: 25,
           ),
         ),
       ),

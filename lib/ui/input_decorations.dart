@@ -13,7 +13,7 @@ class InputDecorations {
         size: 30,
       ),
       hintText: hintText,
-      hintStyle: TextStyle(fontSize: 15, color: Colors.white),
+      hintStyle: const TextStyle(fontSize: 15, color: Colors.white),
       labelText: labelText,
       labelStyle: const TextStyle(color: Colors.white),
     );
