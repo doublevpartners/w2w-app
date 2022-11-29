@@ -64,18 +64,25 @@ class SignInProvider extends ChangeNotifier {
 
   // sign in with facebook
   Future signInWithFacebook() async {
-    final LoginResult result = await facebookAuth.login();
+    final LoginResult result = await facebookAuth.login(
+      permissions: [
+        'public_profile',
+        'email',
+        'pages_show_list',
+        'pages_messaging',
+        'pages_manage_metadata'
+      ],
+    );
 
     // getting the profile
-    final graphResponse = await http.get(Uri.parse(
-        'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${result.accessToken!.token}'));
+    // final graphResponse = await http.get(Uri.parse(
+    //     'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${result.accessToken!.token}'));
 
-    final profile = jsonDecode(graphResponse.body);
-
-    final userData = await facebookAuth.getUserData();
+    // final profile = jsonDecode(graphResponse.body);
 
     if (result.status == LoginStatus.success) {
       try {
+        final userData = await facebookAuth.getUserData();
         final OAuthCredential credential =
             FacebookAuthProvider.credential(result.accessToken!.token);
 
@@ -91,7 +98,7 @@ class SignInProvider extends ChangeNotifier {
         notifyListeners();
       } on FirebaseAuthException catch (e) {
         switch (e.code) {
-          case 'account-exists-with-different-credential':
+          case "account-exists-with-different-credential":
             _errorCode =
                 "You already have an account with us. Use correct provider";
             _hasError = true;
@@ -99,7 +106,7 @@ class SignInProvider extends ChangeNotifier {
             break;
 
           case "null":
-            _errorCode = "Some unexpected error while trying to sing in";
+            _errorCode = "Some unexpected error while trying to sign in";
             _hasError = true;
             notifyListeners();
             break;

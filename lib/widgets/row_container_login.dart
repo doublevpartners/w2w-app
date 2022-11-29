@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:w2w_app/config/config.dart';
 import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/screens/home_screen.dart';
 import 'package:w2w_app/utils/next_screen.dart';
@@ -21,6 +23,7 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
       RoundedLoadingButtonController();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Row(
       key: _scaffoldKey,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -44,10 +47,10 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
 
             await handleGoogleSignIn();
           },
-          child: const CircleAvatar(
-            maxRadius: 25,
-            backgroundImage: NetworkImage(
-                'https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo.png'),
+          child: SvgPicture.asset(
+            Config.google_icon,
+            height: size.height * 0.062,
+            fit: BoxFit.none,
           ),
         ),
         const SizedBox(
@@ -62,10 +65,10 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
           onPressed: () {
             handleFacebookSignIn();
           },
-          child: const CircleAvatar(
-            maxRadius: 25,
-            backgroundImage: NetworkImage(
-                'https://i.pinimg.com/originals/b2/46/d8/b246d896bd1a2e359c2227f6823bed56.jpg'),
+          child: SvgPicture.asset(
+            Config.facebook_icon,
+            height: size.height * 0.062,
+            fit: BoxFit.cover,
           ),
         ),
         const SizedBox(
@@ -78,10 +81,10 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
           color: Colors.white,
           onPressed: () {},
-          child: const CircleAvatar(
-            maxRadius: 25,
-            backgroundImage: NetworkImage(
-                'https://w7.pngwing.com/pngs/589/546/png-transparent-apple-logo-new-york-city-brand-computer-apple-company-computer-logo.png'),
+          child: SvgPicture.asset(
+            Config.apple_icon,
+            height: size.height * 0.062,
+            fit: BoxFit.none,
           ),
         )
       ],

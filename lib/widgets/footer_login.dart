@@ -20,7 +20,7 @@ class FooterLogin extends StatelessWidget {
             '¿No tienes Cuenta?',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 15,
             ),
           ),
         ),
@@ -35,7 +35,7 @@ class FooterLogin extends StatelessWidget {
             'Inscribete',
             style: TextStyle(
                 color: AppTheme.third,
-                fontSize: 16,
+                fontSize: 15,
                 fontWeight: FontWeight.bold),
           ),
         )

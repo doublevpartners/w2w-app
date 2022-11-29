@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/login_form_provider.dart';
 import 'package:w2w_app/services/services.dart';
@@ -19,22 +21,21 @@ class RegisterScreen extends StatelessWidget {
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.darken)),
       ),
-      child: AuthBackgroud(
+      child: RegisterBackground(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 330,
+              CardContainerRegister(
+                child: Column(
+                  children: [
+                    ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(),
+                      child: const _LoginForm(),
+                    )
+                  ],
+                ),
               ),
-              CardContainerLogin(
-                child: Column(children: [
-                  ChangeNotifierProvider(
-                    create: (_) => LoginFormProvider(),
-                    child: const _LoginForm(),
-                  )
-                ]),
-              ),
-              const Text(
+              const AutoSizeText(
                 'O Registrate con',
                 style: TextStyle(fontSize: 15, color: Colors.white),
               ),
@@ -56,17 +57,40 @@ class RegisterScreen extends StatelessWidget {
 
 class _LoginForm extends StatelessWidget {
   const _LoginForm();
+
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final loginForm = Provider.of<LoginFormProvider>(context);
+    // TextEditingController _confirmPassword = TextEditingController();
     return Container(
       child: Form(
           // ignore: todo
           //TODO: mantener la referencia al key
           key: loginForm.formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.disabled,
           child: Column(
             children: [
+              TextFormField(
+                autocorrect: false,
+                autofocus: false,
+                keyboardType: TextInputType.name,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecorations.authInputDecoration(
+                    labelText: 'Nombre', prefixIcon: Icons.person),
+                onChanged: (value) {},
+                validator: (value) {
+                  if (value!.isEmpty ||
+                      !RegExp(r'^[a-z A-z]+$').hasMatch(value)) {
+                    return "Ingresa un Nombre real";
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               TextFormField(
                 autocorrect: false,
                 autofocus: false,
@@ -90,6 +114,33 @@ class _LoginForm extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(55),
+                ),
+                child: InternationalPhoneNumberInput(
+                  formatInput: false,
+                  textStyle: const TextStyle(color: Colors.black),
+                  // selectorConfig: const SelectorConfig(
+                  //   selectorType: PhoneInputSelectorType.DIALOG,
+                  // ),
+                  spaceBetweenSelectorAndTextField: 18,
+                  inputDecoration: InputDecorations.authInputDecoration(
+                    labelText: 'Telefono',
+                    hintText: '3201234567',
+                    prefixIcon: Icons.phone,
+                  ),
+                  errorMessage: 'Numero de telefono no valido',
+                  selectorTextStyle: const TextStyle(
+                      color: Colors.black, backgroundColor: AppTheme.third),
+                  onInputChanged: (PhoneNumber value) {
+                    // print(value.phoneNumber);
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
               TextFormField(
                 autocorrect: false,
                 autofocus: false,
@@ -108,8 +159,24 @@ class _LoginForm extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+              TextFormField(
+                autocorrect: false,
+                autofocus: false,
+                obscureText: true,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecorations.authInputDecoration(
+                    labelText: 'Confirm Password',
+                    hintText: '************',
+                    prefixIcon: Icons.lock_open),
+                onChanged: (value) {},
+                validator: (value) {
+                  if (value == loginForm.password) return null;
+                  return 'Deben ser identicas';
+                },
+              ),
               const SizedBox(
-                height: 15,
+                height: 30,
               ),
               MaterialButton(
                 disabledColor: Colors.grey,

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'header_login.dart';
 
-class AuthBackgroud extends StatelessWidget {
+class RegisterBackground extends StatelessWidget {
   final Widget child;
-  const AuthBackgroud({super.key, required this.child});
+  const RegisterBackground({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +14,7 @@ class AuthBackgroud extends StatelessWidget {
       child: SingleChildScrollView(
           child: Column(children: [
         const HeaderLogin(
-          header1: 'World To Walk',
-          header2: 'Tenemos las mejores\nrutas para ti!',
+          header1: 'Crear una Cuenta',
         ),
         this.child
       ])),

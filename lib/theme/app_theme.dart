@@ -46,12 +46,12 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(
-          color: third, fontSize: 20, fontWeight: FontWeight.w400),
+          color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(50),
       ),
-      labelStyle: const TextStyle(color: third),
+      labelStyle: const TextStyle(color: Colors.white),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(50),

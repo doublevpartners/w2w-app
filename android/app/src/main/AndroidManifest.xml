@@ -1,14 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.w2w_app">
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <queries>
-        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
-    </queries>
     <!-- TODO: <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
    <application
         android:label="w2w_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

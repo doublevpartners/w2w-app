@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -23,34 +24,29 @@ class LoginScreen extends StatelessWidget {
                 Colors.black.withOpacity(0.5), BlendMode.darken)),
       ),
       child: AuthBackgroud(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 330,
-              ),
-              CardContainerLogin(
-                child: Column(children: [
-                  ChangeNotifierProvider(
-                    create: (_) => LoginFormProvider(),
-                    child: const _LoginForm(),
-                  )
-                ]),
-              ),
-              const Text(
-                'O Ingresa con',
-                style: TextStyle(fontSize: 15, color: Colors.white),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const RowContainerLogin(),
-              const SizedBox(
-                height: 10,
-              ),
-              const FooterLogin()
-            ],
-          ),
+        child: Column(
+          children: [
+            CardContainerLogin(
+              child: Column(children: [
+                ChangeNotifierProvider(
+                  create: (_) => LoginFormProvider(),
+                  child: const _LoginForm(),
+                )
+              ]),
+            ),
+            const Text(
+              'O Ingresa con',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const RowContainerLogin(),
+            const SizedBox(
+              height: 10,
+            ),
+            const FooterLogin()
+          ],
         ),
       ),
     ));
@@ -66,7 +62,7 @@ class _LoginForm extends StatelessWidget {
         // ignore: todo
         //TODO: mantener la referencia al key
         key: loginForm.formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           children: [
             TextFormField(
@@ -157,7 +153,7 @@ class _LoginForm extends StatelessWidget {
                           loginForm.email, loginForm.password);
 
                       if (errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, 'home');
+                        Navigator.pushReplacementNamed(context, 'checking');
                       } else {
                         // TODO: mostrar error en pantalla
                         print(errorMessage);
