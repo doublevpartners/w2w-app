@@ -14,42 +14,44 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Container(
+    return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: const AssetImage("assets/imageLogin.jpg"),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5), BlendMode.darken)),
-      ),
-      child: AuthBackgroud(
-        child: Column(
-          children: [
-            CardContainerLogin(
-              child: Column(children: [
-                ChangeNotifierProvider(
-                  create: (_) => LoginFormProvider(),
-                  child: const _LoginForm(),
-                )
-              ]),
-            ),
-            const Text(
-              'O Ingresa con',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const RowContainerLogin(),
-            const SizedBox(
-              height: 10,
-            ),
-            const FooterLogin()
-          ],
+          image: const AssetImage("assets/imageLogin.jpg"),
+          fit: BoxFit.cover,
+          colorFilter:
+              ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken),
         ),
       ),
-    ));
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: AuthBackgroud(
+            child: Column(
+              children: [
+                CardContainerLogin(
+                  child: Column(children: [
+                    ChangeNotifierProvider(
+                      create: (_) => LoginFormProvider(),
+                      child: const _LoginForm(),
+                    )
+                  ]),
+                ),
+                const Text(
+                  'O Ingresa con',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const RowContainerLogin(),
+                const SizedBox(
+                  height: 10,
+                ),
+                const FooterLogin()
+              ],
+            ),
+          )),
+    );
   }
 }
 
@@ -70,6 +72,7 @@ class _LoginForm extends StatelessWidget {
               autocorrect: false,
               autofocus: false,
               keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               decoration: InputDecorations.authInputDecoration(
                   labelText: 'Email',
                   hintText: 'example@mail.com',
@@ -94,10 +97,11 @@ class _LoginForm extends StatelessWidget {
               autocorrect: false,
               autofocus: false,
               obscureText: true,
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecorations.authInputDecoration(
                 labelText: 'Password',
-                hintText: '************',
+                // hintText: '************',
                 prefixIcon: Icons.lock_open,
               ),
               onChanged: (value) => loginForm.password = value,
@@ -137,7 +141,7 @@ class _LoginForm extends StatelessWidget {
                       // quito teclado
                       FocusScope.of(context).unfocus();
                       final authService =
-                          Provider.of<AuthService>(context, listen: false);
+                          Provider.of<SignInProvider>(context, listen: false);
 
                       // ignore: todo
                       //TODO: Login Form

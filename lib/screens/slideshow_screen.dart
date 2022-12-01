@@ -66,6 +66,7 @@ class _Dots extends StatelessWidget {
                   color: Color.fromRGBO(41, 41, 41, 1),
                   fontSize: 30,
                   fontWeight: FontWeight.bold),
+              maxLines: 1,
             ),
           )
         ],

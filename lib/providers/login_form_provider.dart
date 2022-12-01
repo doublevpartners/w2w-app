@@ -4,6 +4,7 @@ class LoginFormProvider extends ChangeNotifier {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String email = '';
+  String name = '';
   String password = '';
 
   bool _isLoading = false;
@@ -18,7 +19,7 @@ class LoginFormProvider extends ChangeNotifier {
     // ignore: avoid_print
     print(formKey.currentState?.validate());
     // ignore: avoid_print
-    print('$email - $password');
+    print('$email - $password - $name');
     return formKey.currentState?.validate() ?? false;
   }
 }

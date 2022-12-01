@@ -8,13 +8,15 @@ class AuthService extends ChangeNotifier {
   final String _firebaseToken = 'AIzaSyD7CnurlJ3GvudLy7EzaH9RqV4mr_E2YFM';
 
   final storage = const FlutterSecureStorage();
+  bool _isSignedIn = false;
+  bool get isSignedIn => _isSignedIn;
 
   Future<String?> createUser(String email, String password) async {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password
     };
-
+    _isSignedIn = true;
     final url =
         Uri.https(_baseUrl, '/v1/accounts:signUp', {'key': _firebaseToken});
 
@@ -37,7 +39,7 @@ class AuthService extends ChangeNotifier {
       'email': email,
       'password': password
     };
-
+    _isSignedIn = true;
     final url = Uri.https(
         _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
 
@@ -57,6 +59,7 @@ class AuthService extends ChangeNotifier {
 
   Future logout() async {
     await storage.delete(key: 'token');
+    _isSignedIn = false;
     return 'Se cerro la sesion';
   }
 

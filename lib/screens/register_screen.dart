@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
-import 'package:w2w_app/providers/login_form_provider.dart';
+import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/services/services.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
@@ -12,8 +15,7 @@ class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+    return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
             image: const AssetImage("assets/imageLogin.jpg"),
@@ -21,37 +23,39 @@ class RegisterScreen extends StatelessWidget {
             colorFilter: ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.darken)),
       ),
-      child: RegisterBackground(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              CardContainerRegister(
-                child: Column(
-                  children: [
-                    ChangeNotifierProvider(
-                      create: (_) => LoginFormProvider(),
-                      child: const _LoginForm(),
-                    )
-                  ],
-                ),
+      child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: RegisterBackground(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CardContainerRegister(
+                    child: Column(
+                      children: [
+                        ChangeNotifierProvider(
+                          create: (_) => LoginFormProvider(),
+                          child: const _LoginForm(),
+                        )
+                      ],
+                    ),
+                  ),
+                  const AutoSizeText(
+                    'O Registrate con',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const RowContainerLogin(),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const FooterRegister()
+                ],
               ),
-              const AutoSizeText(
-                'O Registrate con',
-                style: TextStyle(fontSize: 15, color: Colors.white),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const RowContainerLogin(),
-              const SizedBox(
-                height: 30,
-              ),
-              const FooterRegister()
-            ],
-          ),
-        ),
-      ),
-    ));
+            ),
+          )),
+    );
   }
 }
 
@@ -94,6 +98,7 @@ class _LoginForm extends StatelessWidget {
               TextFormField(
                 autocorrect: false,
                 autofocus: false,
+                textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Email',
@@ -124,6 +129,7 @@ class _LoginForm extends StatelessWidget {
                   // selectorConfig: const SelectorConfig(
                   //   selectorType: PhoneInputSelectorType.DIALOG,
                   // ),
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   spaceBetweenSelectorAndTextField: 18,
                   inputDecoration: InputDecorations.authInputDecoration(
                     labelText: 'Telefono',
@@ -146,9 +152,10 @@ class _LoginForm extends StatelessWidget {
                 autofocus: false,
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Password',
-                    hintText: '************',
+                    // hintText: '************',
                     prefixIcon: Icons.lock_open),
                 onChanged: (value) => loginForm.password = value,
                 validator: (value) {
@@ -165,9 +172,10 @@ class _LoginForm extends StatelessWidget {
                 obscureText: true,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 decoration: InputDecorations.authInputDecoration(
                     labelText: 'Confirm Password',
-                    hintText: '************',
+                    // hintText: '************',
                     prefixIcon: Icons.lock_open),
                 onChanged: (value) {},
                 validator: (value) {
@@ -189,7 +197,7 @@ class _LoginForm extends StatelessWidget {
                         // quito teclado
                         FocusScope.of(context).unfocus();
                         final authService =
-                            Provider.of<AuthService>(context, listen: false);
+                            Provider.of<SignInProvider>(context, listen: false);
 
                         //TODO: Login Form
                         if (!loginForm.isValidForm()) return;
@@ -203,7 +211,10 @@ class _LoginForm extends StatelessWidget {
                             .createUser(loginForm.email, loginForm.password);
 
                         if (errorMessage == null) {
-                          Navigator.pushReplacementNamed(context, 'slideshow');
+                          // Navigator.pushReplacementNamed(context, 'slideshow');
+                          Platform.isAndroid
+                              ? displayDialogAndroid(context)
+                              : displayDialogIOS(context);
                         } else {
                           // TODO: mostrar error en pantalla
                           print(errorMessage);
@@ -230,5 +241,79 @@ class _LoginForm extends StatelessWidget {
             ],
           )),
     );
+  }
+
+  void displayDialogIOS(BuildContext context) {
+    showCupertinoDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text('Titulo'),
+            content: Column(mainAxisSize: MainAxisSize.min, children: const [
+              Text('Este es el contenido de la alerta'),
+              SizedBox(
+                height: 10,
+              ),
+              FlutterLogo(
+                size: 100,
+              )
+            ]),
+            actions: [
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Colors.red),
+                  )),
+              TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Ok')),
+            ],
+          );
+        });
+  }
+
+  void displayDialogAndroid(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            elevation: 5,
+            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.25),
+            title: const Text('Titulo'),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            content: Column(mainAxisSize: MainAxisSize.min, children: [
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [AppTheme.primary, AppTheme.secondary]),
+                ),
+                child: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+              Text(
+                '¡Felicitaciones!',
+                style: Theme.of(context).textTheme.headline4,
+                textAlign: TextAlign.center,
+              ),
+              const Text(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                textAlign: TextAlign.center,
+              )
+            ]),
+            actions: [
+              TextButton(
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, 'slideshow'),
+                  child: const Text('Aceptar'))
+            ],
+          );
+        });
   }
 }

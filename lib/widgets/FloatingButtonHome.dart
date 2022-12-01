@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:w2w_app/screens/home_screen.dart';
+import 'package:w2w_app/utils/next_screen.dart';
 
 import '../theme/app_theme.dart';
 
@@ -12,24 +15,28 @@ class FloatingButtonHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: EdgeInsets.zero,
+      width: size.width * 0.15,
+      height: size.height * 0.11,
       child: FloatingActionButton(
+        shape: const CircleBorder(),
         onPressed: () {
           // authService.logout();
           // Navigator.pushReplacementNamed(context, 'login');
-          Navigator.pushReplacementNamed(context, 'home');
+          nextScreenReplace(context, const HomeScreen());
         },
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                colors: [AppTheme.primary, AppTheme.secondary]),
-            borderRadius: BorderRadius.circular(55),
+          decoration: const BoxDecoration(
+            gradient:
+                LinearGradient(colors: [AppTheme.primary, AppTheme.secondary]),
+            shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.home_outlined,
-            size: size.width * 0.1,
+          child: SvgPicture.asset(
+            'assets/home_icon.svg',
+            fit: BoxFit.scaleDown,
           ),
         ),
       ),

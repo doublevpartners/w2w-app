@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(seconds: 2),
         () => {
               sp.isSignedIn == false
-                  ? nextScreenReplace(context, const LoginScreen())
+                  ? nextScreenReplace(context, const HomeScreen())
                   : nextScreenReplace(context, const HomeScreen())
             });
   }

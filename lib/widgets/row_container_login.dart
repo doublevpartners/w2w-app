@@ -148,7 +148,7 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
             if (sp.hasError == true)
               {
                 openSnackBar(context, sp.errorCode.toString(), Colors.red),
-                googleController.reset(),
+                facebookController.reset(),
               }
             else
               {
