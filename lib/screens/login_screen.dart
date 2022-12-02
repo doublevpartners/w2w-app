@@ -3,11 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
+import 'package:w2w_app/screens/onboarding_screen.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
+import 'package:w2w_app/utils/next_screen.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
-import '../services/services.dart';
+import '../utils/snack_bars.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -157,12 +159,14 @@ class _LoginForm extends StatelessWidget {
                           loginForm.email, loginForm.password);
 
                       if (errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, 'checking');
+                        nextScreenReplace(context, const OnboardingScreen());
                       } else {
                         // TODO: mostrar error en pantalla
                         print(errorMessage);
-                        NotificationService.showSnackbar(
-                            'Correo ó Contraseña Invalido');
+                        // ignore: use_build_context_synchronously
+                        openSnackBar(context, 'Correo ó Contraseña Invalido',
+                            Colors.red);
+
                         loginForm.isLoading = false;
                       }
                     },

@@ -191,6 +191,8 @@ class _SearchInput extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+        onTap: () => {},
+        // showSearch(context: context, delegate: CitySearchDelegate()),
         cursorColor: AppTheme.third,
         autofocus: false,
         style: const TextStyle(color: AppTheme.third),

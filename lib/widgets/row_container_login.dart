@@ -169,7 +169,7 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
                         .then((value) => sp.setSignIn().then((value) {
                               facebookController.success();
                               Navigator.pushReplacementNamed(
-                                  context, 'slideshow');
+                                  context, 'onboarding');
                             })));
                   }
                 })

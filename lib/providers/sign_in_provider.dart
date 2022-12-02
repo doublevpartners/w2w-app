@@ -289,6 +289,58 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
+  // Future login(String email, String password) async {
+  //   final UserCredential userCredential = await firebaseAuth
+  //       .signInWithEmailAndPassword(email: email, password: password);
+  //   try {
+  //     _email = email;
+  //     _isSignedIn = true;
+  //     notifyListeners();
+  //   } on FirebaseAuthException catch (e) {
+  //     switch (e.code) {
+  //       case "invalid-email":
+  //         _errorCode = "Your email address appears to be malformed.";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+
+  //       case "wrong-password":
+  //         _errorCode = "Your password is wrong.";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+
+  //       case "user-not-found":
+  //         _errorCode = "User with this email doesn't exist.";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+
+  //       case "user-disabled":
+  //         _errorCode = "User with this email has been disabled.";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+
+  //       case "too-many-requests":
+  //         _errorCode = "Too many requests";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+  //       case "operation-not-allowed":
+  //         _errorCode = "Signing in with Email and Password is not enabled.";
+  //         _hasError = true;
+  //         notifyListeners();
+  //         break;
+
+  //       default:
+  //         _errorCode = e.toString();
+  //         _hasError = true;
+  //         notifyListeners();
+  //     }
+  //   }
+  // }
+
   Future logout() async {
     await storage.delete(key: 'token');
     _isSignedIn = false;

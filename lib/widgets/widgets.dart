@@ -1,3 +1,5 @@
+export 'package:w2w_app/widgets/button_skip.dart';
+
 export 'package:w2w_app/screens/cities_screen.dart';
 export 'package:w2w_app/widgets/app_bar_app.dart';
 export 'package:w2w_app/widgets/auth_background.dart';

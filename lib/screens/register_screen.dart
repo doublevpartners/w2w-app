@@ -3,13 +3,19 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
-import 'package:w2w_app/services/services.dart';
+import 'package:w2w_app/screens/login_screen.dart';
+import 'package:w2w_app/screens/onboarding_screen.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
+import 'package:w2w_app/utils/next_screen.dart';
+import 'package:w2w_app/widgets/slideshow.dart';
 import 'package:w2w_app/widgets/widgets.dart';
+
+import '../services/notifications_service.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -125,20 +131,18 @@ class _LoginForm extends StatelessWidget {
                 ),
                 child: InternationalPhoneNumberInput(
                   formatInput: false,
-                  textStyle: const TextStyle(color: Colors.black),
+                  textStyle: const TextStyle(color: Colors.white),
                   // selectorConfig: const SelectorConfig(
                   //   selectorType: PhoneInputSelectorType.DIALOG,
                   // ),
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   spaceBetweenSelectorAndTextField: 18,
+
                   inputDecoration: InputDecorations.authInputDecoration(
-                    labelText: 'Telefono',
-                    hintText: '3201234567',
-                    prefixIcon: Icons.phone,
-                  ),
+                      labelText: 'Telefono', prefixIcon: Icons.phone),
                   errorMessage: 'Numero de telefono no valido',
                   selectorTextStyle: const TextStyle(
-                      color: Colors.black, backgroundColor: AppTheme.third),
+                      backgroundColor: AppTheme.third, color: Colors.black),
                   onInputChanged: (PhoneNumber value) {
                     // print(value.phoneNumber);
                   },
@@ -191,6 +195,9 @@ class _LoginForm extends StatelessWidget {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(55)),
+                // onPressed: () => Platform.isAndroid
+                //     ? displayDialogAndroid(context)
+                //     : displayDialogIOS(context),
                 onPressed: loginForm.isLoading
                     ? null
                     : () async {
@@ -266,9 +273,9 @@ class _LoginForm extends StatelessWidget {
                     'Cancel',
                     style: TextStyle(color: Colors.red),
                   )),
-              TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Ok')),
+              MaterialButton(
+                onPressed: () => Navigator.pop(context),
+              )
             ],
           );
         });
@@ -281,37 +288,53 @@ class _LoginForm extends StatelessWidget {
         builder: (context) {
           return AlertDialog(
             elevation: 5,
-            backgroundColor: const Color.fromRGBO(255, 255, 255, 0.25),
-            title: const Text('Titulo'),
+            backgroundColor: const Color.fromARGB(141, 255, 255, 255),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Container(
+                padding: const EdgeInsets.all(20),
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [AppTheme.primary, AppTheme.secondary]),
-                ),
-                child: const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 30,
-                ),
+                    gradient: LinearGradient(
+                      colors: [AppTheme.primary, AppTheme.secondary],
+                    ),
+                    shape: BoxShape.circle),
+                child: SvgPicture.asset('assets/check.svg'),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               Text(
                 '¡Felicitaciones!',
                 style: Theme.of(context).textTheme.headline4,
                 textAlign: TextAlign.center,
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
               const Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                'Ya estás listo para iniciar sesión .',
                 textAlign: TextAlign.center,
               )
             ]),
             actions: [
-              TextButton(
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, 'slideshow'),
-                  child: const Text('Aceptar'))
+              MaterialButton(
+                onPressed: () =>
+                    nextScreenReplace(context, const LoginScreen()),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                          colors: [AppTheme.primary, AppTheme.secondary]),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: const Text(
+                    'Continuar',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
             ],
           );
         });

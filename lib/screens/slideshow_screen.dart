@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/models/slider_model.dart';
 
+import '../widgets/widgets.dart';
+
 //* Onboarding
 class SlideShowScreen extends StatelessWidget {
   const SlideShowScreen({Key? key}) : super(key: key);
@@ -12,18 +14,8 @@ class SlideShowScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => SliderModel(),
       child: Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          elevation: 100,
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, 'home');
-          },
-          child: const Text(
-            'Skip',
-            style: TextStyle(color: Colors.white, fontSize: 19),
-          ),
-        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        floatingActionButton: const ButtonSkip(),
         body: MediaQuery.removePadding(
           context: context,
           removeTop: true,

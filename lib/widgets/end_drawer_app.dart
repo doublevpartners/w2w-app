@@ -19,57 +19,55 @@ class EndDrawerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: size.height * 0.4),
+      padding: EdgeInsets.only(bottom: size.height * 0.56),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(250),
           topLeft: Radius.circular(250),
-          bottomRight: Radius.circular(20),
+          bottomRight: Radius.circular(40),
         ),
         child: SizedBox(
           width: size.width * 0.75,
           child: Drawer(
             backgroundColor: AppTheme.primary,
             child: Container(
+              margin: EdgeInsets.only(top: size.height * 0.08),
               padding: EdgeInsets.only(left: size.width * 0.2),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              child: Column(children: [
+                Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                        left: 120,
-                      ),
-                      child: const MenuButton(isOpen: false),
-                    ),
                     NavigationApp(
                       size: size,
                       text: 'Mi perfil',
                       icon: Icons.person_outline_outlined,
                       screen: const ProfileScreen(),
                     ),
-                    NavigationApp(
-                      size: size,
-                      text: 'Histórico de Rutas',
-                      icon: Icons.calendar_today_outlined,
-                      screen: const RouteHistoryScreen(),
-                    ),
-                    NavigationApp(
-                      size: size,
-                      text: 'Favoritos',
-                      icon: Icons.wallet,
-                      screen: const FavouriteScreen(),
-                    ),
-                    NavigationApp(
-                      size: size,
-                      text: 'Notificaciones',
-                      icon: Icons.notifications_none,
-                    ),
-                    NavigationApp(
-                      size: size,
-                      text: 'Cerrar sesión',
-                      icon: Icons.logout,
-                    )
-                  ]),
+                    const MenuButton(isOpen: false),
+                  ],
+                ),
+                NavigationApp(
+                  size: size,
+                  text: 'Histórico de Rutas',
+                  icon: Icons.calendar_today_outlined,
+                  screen: const RouteHistoryScreen(),
+                ),
+                NavigationApp(
+                  size: size,
+                  text: 'Favoritos',
+                  icon: Icons.wallet,
+                  screen: const FavouriteScreen(),
+                ),
+                NavigationApp(
+                  size: size,
+                  text: 'Notificaciones',
+                  icon: Icons.notifications_none,
+                ),
+                NavigationApp(
+                  size: size,
+                  text: 'Cerrar sesión',
+                  icon: Icons.logout,
+                )
+              ]),
             ),
           ),
         ),
@@ -117,7 +115,7 @@ class NavigationApp extends StatelessWidget {
           },
           child: Text(
             text,
-            style: const TextStyle(fontSize: 18, color: AppTheme.third),
+            style: const TextStyle(fontSize: 15, color: AppTheme.third),
           ),
         )
       ],
