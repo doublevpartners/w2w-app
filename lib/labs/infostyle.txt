@@ -1,0 +1,15 @@
+ MaterialButton(
+            onPressed: () {},
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 130, vertical: 10),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+            child: const AutoSizeText(
+              'Siguiente',
+              style: TextStyle(
+                  color: Color.fromRGBO(41, 41, 41, 1),
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
+              maxLines: 1,
+            ),
+          )
