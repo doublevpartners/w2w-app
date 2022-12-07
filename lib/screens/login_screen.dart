@@ -159,7 +159,7 @@ class _LoginForm extends StatelessWidget {
                           loginForm.email, loginForm.password);
 
                       if (errorMessage == null) {
-                        nextScreenReplace(context, const OnboardingScreen());
+                        Navigator.pushReplacementNamed(context, 'onboarding');
                       } else {
                         // TODO: mostrar error en pantalla
                         print(errorMessage);

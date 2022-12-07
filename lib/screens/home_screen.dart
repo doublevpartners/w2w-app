@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:w2w_app/models/city_model.dart';
 import 'package:w2w_app/providers/providers.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/utils/next_screen.dart';
@@ -70,59 +71,59 @@ class _BodyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.only(bottom: 300),
-        child: Stack(
-          children: [
-            Positioned(
-              // top: size.height * 0.01,
-              left: size.width * 0.08,
-              child: SvgPicture.asset(
-                'assets/home.svg',
-                width: size.width * 0.3,
+    return Container(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Positioned(
+                // top: size.height * 0.01,
+                left: size.width * 0.08,
+                child: SvgPicture.asset(
+                  'assets/home.svg',
+                  width: size.width * 0.3,
+                ),
               ),
-            ),
-            Positioned(
-              // top: size.height * 0.01,
-              left: size.width * 0.4,
-              child: AutoSizeText(
-                'World',
-                style: Theme.of(context).textTheme.headline4,
-                textAlign: TextAlign.end,
+              Positioned(
+                // top: size.height * 0.01,
+                left: size.width * 0.4,
+                child: AutoSizeText(
+                  'World',
+                  style: Theme.of(context).textTheme.headline4,
+                  textAlign: TextAlign.end,
+                ),
               ),
-            ),
-            Positioned(
-              top: size.height * 0.04,
-              left: size.width * 0.4,
-              child: Column(
-                children: [
-                  AutoSizeText(
-                    'To Walk',
-                    style: Theme.of(context).textTheme.headline1,
-                  )
-                ],
+              Positioned(
+                top: size.height * 0.04,
+                left: size.width * 0.4,
+                child: Column(
+                  children: [
+                    AutoSizeText(
+                      'To Walk',
+                      style: Theme.of(context).textTheme.headline1,
+                    )
+                  ],
+                ),
               ),
-            ),
-            _SearchInput(size: size),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              _ButtonsHome(
-                size: size,
-                svg: 'assets/home_location.svg',
-                text: 'Todas las Rutas',
-                screen: CitiesScreen(),
-              ),
-              SizedBox(
-                width: size.width * 0.2,
-              ),
-              _ButtonsHome(
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                _ButtonsHome(
+                  size: size,
+                  svg: 'assets/home_location.svg',
+                  text: 'Todas las Rutas',
+                ),
+                SizedBox(
+                  width: size.width * 0.2,
+                ),
+                _ButtonsHome(
                   size: size,
                   svg: 'assets/home_person.svg',
                   text: 'Cerca de ti',
-                  screen: HomeScreen())
-            ]),
-          ],
-        ),
+                )
+              ]),
+              _SearchInput(size: size),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -134,7 +135,7 @@ class _ButtonsHome extends StatelessWidget {
     required this.size,
     required this.svg,
     required this.text,
-    required this.screen,
+    this.screen,
   }) : super(key: key);
 
   final Size size;
@@ -171,7 +172,7 @@ class _ButtonsHome extends StatelessWidget {
   }
 }
 
-class _SearchInput extends StatelessWidget {
+class _SearchInput extends StatefulWidget {
   const _SearchInput({
     Key? key,
     required this.size,
@@ -180,30 +181,113 @@ class _SearchInput extends StatelessWidget {
   final Size size;
 
   @override
+  State<_SearchInput> createState() => _SearchInputState();
+}
+
+class _SearchInputState extends State<_SearchInput> {
+  static List<CityModel> main_cities_list = [
+    CityModel(name_city: 'Medellin'),
+    CityModel(name_city: 'Barcelona'),
+    CityModel(name_city: 'Madrid'),
+    CityModel(name_city: 'Ciudad de Mexico'),
+    CityModel(name_city: 'Bogota'),
+    CityModel(name_city: 'Brasilia'),
+    CityModel(name_city: 'Berlin'),
+    CityModel(name_city: 'Paris'),
+    CityModel(name_city: 'Ottawa'),
+    CityModel(name_city: 'Singapore'),
+  ];
+
+  List<CityModel> display_list = List.from(main_cities_list);
+
+  void updateList(String value) {
+    // this is the function will filter our list
+    setState(() {
+      display_list = main_cities_list
+          .where((element) =>
+              element.name_city!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
+  }
+
+  TextEditingController search = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: size.height * 0.2, left: size.width * 0.12),
-      padding: EdgeInsets.symmetric(vertical: size.height * 0.02),
-      width: size.width * 0.8,
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: AppTheme.third, width: 2),
-        ),
+      margin: EdgeInsets.only(
+          top: widget.size.height * 0.2, left: widget.size.height * 0.05),
+      padding: const EdgeInsets.symmetric(
+        vertical: 0,
       ),
-      child: TextFormField(
-        onTap: () => {},
-        // showSearch(context: context, delegate: CitySearchDelegate()),
-        cursorColor: AppTheme.third,
-        autofocus: false,
-        style: const TextStyle(color: AppTheme.third),
-        decoration: const InputDecoration(
-          hintText: 'Elige tu Ciudad',
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppTheme.third,
-            size: 25,
+      width: widget.size.width * 0.8,
+      decoration: search.text == ''
+          ? const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: AppTheme.third, width: 2),
+              ),
+            )
+          : const BoxDecoration(),
+      child: Column(
+        children: [
+          TextFormField(
+            controller: search,
+            onChanged: (value) {
+              updateList(value);
+            },
+            onTap: () {},
+            // showSearch(context: context, delegate: CitySearchDelegate()),
+            cursorColor: AppTheme.third,
+            autofocus: false,
+            style: const TextStyle(color: AppTheme.third),
+            decoration: const InputDecoration(
+              hintText: 'Elige tu Ciudad',
+              prefixIcon: Icon(
+                Icons.search,
+                color: AppTheme.third,
+                size: 25,
+              ),
+            ),
           ),
-        ),
+          const SizedBox(
+            height: 10,
+          ),
+          if (search.text != '')
+            display_list.length == 0
+                ? const Center(
+                    child: Text('No se encontro ningun resultado'),
+                  )
+                : Container(
+                    padding: EdgeInsets.zero,
+                    height: MediaQuery.of(context).size.height * 0.19,
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: display_list.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            color: const Color.fromARGB(173, 158, 158, 158),
+                            child: ListTile(
+                              title: MaterialButton(
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    search.text =
+                                        display_list[index].name_city!;
+
+                                    nextScreen(context,
+                                        CitiesScreen(city: search.text));
+
+                                    search.clear();
+                                  },
+                                  child: Text(
+                                    display_list[index].name_city!,
+                                    style:
+                                        const TextStyle(color: AppTheme.third),
+                                  )),
+                            ),
+                          );
+                        }),
+                  )
+        ],
       ),
     );
   }

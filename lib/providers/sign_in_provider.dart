@@ -51,6 +51,7 @@ class SignInProvider extends ChangeNotifier {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     _isSignedIn = sharedPreferences.getBool("signed_in") ?? false;
+    print('holitas $_isSignedIn');
     notifyListeners();
   }
 

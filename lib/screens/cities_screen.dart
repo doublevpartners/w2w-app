@@ -7,7 +7,8 @@ import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
 class CitiesScreen extends StatelessWidget {
-  const CitiesScreen({Key? key}) : super(key: key);
+  const CitiesScreen({Key? key, required this.city}) : super(key: key);
+  final String city;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,16 @@ class CitiesScreen extends StatelessWidget {
               padding: EdgeInsets.zero,
               child: Stack(
                 children: [
-                  _BodyCities(size: size, sp: sp),
+                  _BodyCities(
+                    size: size,
+                    sp: sp,
+                    city: city,
+                  ),
                   Positioned(
                     top: size.height * 0.4,
                     child: ItemSlider(
                       size: size,
+                      city: city,
                     ),
                   ),
                   Positioned(
@@ -64,10 +70,12 @@ class CitiesScreen extends StatelessWidget {
 }
 
 class _BodyCities extends StatelessWidget {
+  final String city;
   const _BodyCities({
     Key? key,
     required this.size,
     required this.sp,
+    required this.city,
   }) : super(key: key);
 
   final Size size;
@@ -78,6 +86,7 @@ class _BodyCities extends StatelessWidget {
     return Opacity(
       opacity: 0.9,
       child: Container(
+          padding: EdgeInsets.zero,
           margin: EdgeInsets.only(
               top: size.height * 0.1,
               left: size.height * 0.03,
@@ -92,20 +101,23 @@ class _BodyCities extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 300,
-                alignment: Alignment.center,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Madrid',
+                padding: EdgeInsets.zero,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.zero,
+                      width: 200,
+                      child: AutoSizeText(
+                        city,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headline2,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                      const _UnclockCities(),
-                    ],
-                  ),
+                    ),
+                    const _UnclockCities(),
+                  ],
                 ),
               ),
               const AutoSizeText(
@@ -143,6 +155,7 @@ class _UnclockCities extends StatelessWidget {
         child: const Icon(
           Icons.lock,
           color: AppTheme.third,
+          size: 35,
         ),
       ),
     );

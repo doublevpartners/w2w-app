@@ -8,14 +8,17 @@ import 'package:w2w_app/utils/next_screen.dart';
 import '../widgets/widgets.dart';
 
 final List<Onboard> onboardData = [
-  Onboard(image: 'assets/Onboarding1.jpg', text: 'Se tu Propio Guía'),
   Onboard(
-      image: 'assets/Onboarding2.jpg',
+      image: 'assets/onboarding/Onboarding1.jpg',
+      text: '',
+      formatText: 'Se tu propio guía'),
+  Onboard(
+      image: 'assets/onboarding/Onboarding2.jpg',
       formatText: 'Audios',
-      text: ' en tu Idioma'),
+      text: ' en tu idioma'),
   Onboard(
-      image: 'assets/Onboarding3.jpg',
-      formatText: 'Aun click',
+      image: 'assets/onboarding/Onboarding3.jpg',
+      formatText: 'Aun clic',
       text: ' de las mejores rutas')
 ];
 
@@ -46,8 +49,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: const ButtonSkip(),
       body: MediaQuery.removePadding(
         context: context,
         child: PageView.builder(
@@ -92,15 +93,18 @@ class _OnboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(image),
-          colorFilter:
-              ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.darken),
-          fit: BoxFit.cover,
-        ),
-      ),
+      padding: EdgeInsets.zero,
       child: Stack(children: [
+        Container(
+          height: size.height * 0.7,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(image),
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.1), BlendMode.darken),
+                fit: BoxFit.cover),
+          ),
+        ),
         SizedBox(
           width: double.infinity,
           height: double.infinity,
@@ -108,6 +112,7 @@ class _OnboardContent extends StatelessWidget {
             painter: _FooterCurvePainter(),
           ),
         ),
+        _pageIndex != 2 ? const ButtonSkip() : Container(),
         Positioned(
           top: size.height * 0.65,
           left: 0,
@@ -116,47 +121,53 @@ class _OnboardContent extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(top: size.height * 0.02),
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.18),
                 child: _OnboardText(formatText: formatText, text: text),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...List.generate(
-                    onboardData.length,
-                    (index) => _DotIndicator(
-                      isActive: _pageIndex == index,
-                    ),
-                  )
-                ],
-              ),
-              MaterialButton(
-                onPressed: () {
-                  if (_pageIndex == 2) {
-                    nextScreenReplace(context, const SplashScreen());
-                  }
-
-                  pageViewController.nextPage(
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.ease);
-                },
-                color: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 130, vertical: 10),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(55)),
-                child: const AutoSizeText(
-                  'Siguiente',
-                  style: TextStyle(
-                      color: Color.fromRGBO(41, 41, 41, 1),
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                ),
-              )
             ],
           ),
-        )
+        ),
+        Positioned(
+            bottom: size.height * 0.02,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ...List.generate(
+                      onboardData.length,
+                      (index) => _DotIndicator(
+                        isActive: _pageIndex == index || _pageIndex > index,
+                      ),
+                    )
+                  ],
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    if (_pageIndex == 2) {
+                      nextScreenReplace(context, const SplashScreen());
+                    }
+
+                    pageViewController.nextPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.ease);
+                  },
+                  color: AppTheme.third,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 130, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(55)),
+                  child: const AutoSizeText(
+                    'Siguiente',
+                    style: TextStyle(
+                        color: Color.fromRGBO(41, 41, 41, 1),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ))
       ]),
     );
   }
@@ -180,7 +191,7 @@ class _OnboardText extends StatelessWidget {
         TextSpan(
           text: formatText,
           style: const TextStyle(
-            color: Colors.white,
+            color: AppTheme.third,
             fontSize: 45,
             fontWeight: FontWeight.bold,
           ),
@@ -188,7 +199,7 @@ class _OnboardText extends StatelessWidget {
         TextSpan(
           text: text,
           style: const TextStyle(
-            color: Colors.white,
+            color: AppTheme.third,
             fontSize: 45,
             fontWeight: FontWeight.normal,
           ),
@@ -212,7 +223,10 @@ class _DotIndicator extends StatelessWidget {
         width: 100,
         height: 3,
         margin: const EdgeInsets.only(left: 10, bottom: 20, top: 6),
-        decoration: BoxDecoration(color: isActive ? Colors.blue : Colors.grey));
+        decoration: BoxDecoration(
+            color: isActive
+                ? AppTheme.third
+                : const Color.fromARGB(72, 158, 158, 158)));
   }
 }
 

@@ -16,6 +16,7 @@ import 'package:w2w_app/widgets/slideshow.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
 import '../services/notifications_service.dart';
+import '../utils/snack_bars.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -225,7 +226,9 @@ class _LoginForm extends StatelessWidget {
                         } else {
                           // TODO: mostrar error en pantalla
                           print(errorMessage);
-                          NotificationService.showSnackbar(errorMessage);
+                          // ignore: use_build_context_synchronously
+                          openSnackBar(
+                              context, 'Correo ya existente', Colors.red);
                           loginForm.isLoading = false;
                         }
                       },
@@ -320,7 +323,7 @@ class _LoginForm extends StatelessWidget {
             actions: [
               MaterialButton(
                 onPressed: () =>
-                    nextScreenReplace(context, const LoginScreen()),
+                    Navigator.pushReplacementNamed(context, 'login'),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 15),

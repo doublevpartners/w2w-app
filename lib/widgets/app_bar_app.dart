@@ -7,15 +7,18 @@ class AppBarApp extends StatelessWidget with PreferredSizeWidget {
   const AppBarApp({
     Key? key,
     required this.sp,
+    this.city,
   }) : super(key: key);
 
   final SignInProvider sp;
+  final String? city;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       shadowColor: Colors.transparent,
       // automaticallyImplyLeading: false,
+      // title: city == null ? Text(city ?? '') : null,
       backgroundColor: Colors.transparent,
       actions: [
         sp.isSignedIn == true
