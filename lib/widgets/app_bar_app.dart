@@ -20,6 +20,9 @@ class AppBarApp extends StatelessWidget with PreferredSizeWidget {
       // automaticallyImplyLeading: false,
       // title: city == null ? Text(city ?? '') : null,
       backgroundColor: Colors.transparent,
+      iconTheme: const IconThemeData(
+        color: Colors.black, //change your color here
+      ),
       actions: [
         sp.isSignedIn == true
             ? Builder(builder: (context) {

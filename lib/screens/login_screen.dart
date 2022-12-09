@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
-import 'package:w2w_app/screens/onboarding_screen.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
-import 'package:w2w_app/utils/next_screen.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
 import '../utils/snack_bars.dart';
@@ -155,19 +153,36 @@ class _LoginForm extends StatelessWidget {
 
                       // ignore: todo
                       //TODO: Validar si el login es correcto
-                      final String? errorMessage = await authService.login(
-                          loginForm.email, loginForm.password);
+                      if (authService.first == false) {
+                        final String? errorMessage = await authService.login(
+                            loginForm.email, loginForm.password);
 
-                      if (errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, 'onboarding');
+                        if (errorMessage == null) {
+                          Navigator.pushReplacementNamed(context, 'home');
+                        } else {
+                          // TODO: mostrar error en pantalla
+                          print(errorMessage);
+                          // ignore: use_build_context_synchronously
+                          openSnackBar(context, 'Correo ó Contraseña Invalido',
+                              Colors.red);
+
+                          loginForm.isLoading = false;
+                        }
                       } else {
-                        // TODO: mostrar error en pantalla
-                        print(errorMessage);
-                        // ignore: use_build_context_synchronously
-                        openSnackBar(context, 'Correo ó Contraseña Invalido',
-                            Colors.red);
+                        final String? errorMessage = await authService.login(
+                            loginForm.email, loginForm.password);
 
-                        loginForm.isLoading = false;
+                        if (errorMessage == null) {
+                          Navigator.pushReplacementNamed(context, 'onboarding');
+                        } else {
+                          // TODO: mostrar error en pantalla
+                          print(errorMessage);
+                          // ignore: use_build_context_synchronously
+                          openSnackBar(context, 'Correo ó Contraseña Invalido',
+                              Colors.red);
+
+                          loginForm.isLoading = false;
+                        }
                       }
                     },
               child: Container(

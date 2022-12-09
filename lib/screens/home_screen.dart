@@ -110,6 +110,7 @@ class _BodyHome extends StatelessWidget {
                   size: size,
                   svg: 'assets/home_location.svg',
                   text: 'Todas las Rutas',
+                  screen: const CitiesScreen(city: 'Madrid'),
                 ),
                 SizedBox(
                   width: size.width * 0.2,
@@ -118,6 +119,7 @@ class _BodyHome extends StatelessWidget {
                   size: size,
                   svg: 'assets/home_person.svg',
                   text: 'Cerca de ti',
+                  screen: const CitiesScreen(city: 'Madrid'),
                 )
               ]),
               _SearchInput(size: size),

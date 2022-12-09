@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 
@@ -85,52 +87,63 @@ class _BodyCities extends StatelessWidget {
   Widget build(BuildContext context) {
     return Opacity(
       opacity: 0.9,
-      child: Container(
-          padding: EdgeInsets.zero,
-          margin: EdgeInsets.only(
-              top: size.height * 0.1,
-              left: size.height * 0.03,
-              bottom: size.height * 0.25),
-          width: size.width * 0.88,
-          height: size.height * 0.41,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.width * 100),
-            color: AppTheme.third,
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.only(
+                top: size.height * 0.1,
+                left: size.height * 0.03,
+                bottom: size.height * 0.25),
+            width: size.width * 0.88,
+            height: size.height * 0.44,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.width * 100),
+              color: const Color.fromARGB(194, 255, 255, 255),
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: EdgeInsets.zero,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.zero,
-                      width: 200,
-                      child: AutoSizeText(
-                        city,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline2,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
+          Positioned(
+            top: size.height * 0.23,
+            child: Container(
+              padding: EdgeInsets.only(left: size.width * 0.25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.zero,
+                    width: size.width * 0.51,
+                    child: AutoSizeText(
+                      city,
+                      textAlign: TextAlign.end,
+                      style: GoogleFonts.poppins(
+                          textStyle: Theme.of(context).textTheme.headline2),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
-                    const _UnclockCities(),
-                  ],
-                ),
+                  ),
+                  const _UnclockCities(),
+                ],
               ),
-              const AutoSizeText(
-                'Descubre \n las Mejores Rutas',
-                style: TextStyle(
-                    color: AppTheme.secondary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              )
-            ],
-          )),
+            ),
+          ),
+          Positioned(
+              top: size.height * 0.305,
+              left: size.width * 0.27,
+              child: Container(
+                padding: EdgeInsets.only(left: size.width * 0.04, top: 0),
+                child: AutoSizeText(
+                  'Descubre \n las mejores rutas',
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: AppTheme.secondary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300)),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                ),
+              ))
+        ],
+      ),
     );
   }
 }
@@ -147,17 +160,19 @@ class _UnclockCities extends StatelessWidget {
       minWidth: 13,
       shape: const CircleBorder(),
       child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient:
-                LinearGradient(colors: [AppTheme.primary, AppTheme.secondary])),
-        child: const Icon(
-          Icons.lock,
-          color: AppTheme.third,
-          size: 35,
-        ),
-      ),
+          padding: const EdgeInsets.all(15),
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                  colors: [AppTheme.primary, AppTheme.secondary]),
+              boxShadow: [
+                BoxShadow(
+                    color: AppTheme.secondary,
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                    offset: Offset(1, 5))
+              ]),
+          child: SvgPicture.asset('assets/unclock.svg')),
     );
   }
 }

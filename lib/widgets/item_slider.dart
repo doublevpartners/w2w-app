@@ -58,7 +58,7 @@ class _ListItem extends StatelessWidget {
               nextScreen(context, routeItems[index]);
             },
             child: Container(
-              padding: const EdgeInsets.all(1),
+              padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
               margin: EdgeInsets.symmetric(horizontal: size.width * 0.01),
               width: size.width * 0.28,
               height: size.height * 0.4,
@@ -79,12 +79,17 @@ class _ListItem extends StatelessWidget {
                       onTap: () {
                         nextScreen(context, routeItems[index]);
                       },
-                      child: AutoSizeText(
-                        nameItems[index],
-                        style: Theme.of(context).textTheme.headline6,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
+                      child: AutoSizeText(nameItems[index],
+                          style: nameItems[index] == 'Must de la ciudad'
+                              ? const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                )
+                              : Theme.of(context).textTheme.headline6,
+                          textAlign: TextAlign.center,
+                          maxLines:
+                              nameItems[index] == 'Must de la ciudad' ? 2 : 1),
                     ),
                   ]),
             ),

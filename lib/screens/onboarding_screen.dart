@@ -18,7 +18,7 @@ final List<Onboard> onboardData = [
       text: ' en tu idioma'),
   Onboard(
       image: 'assets/onboarding/Onboarding3.jpg',
-      formatText: 'Aun clic',
+      formatText: 'A un clic',
       text: ' de las mejores rutas')
 ];
 

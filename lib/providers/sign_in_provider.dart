@@ -42,6 +42,9 @@ class SignInProvider extends ChangeNotifier {
   String? _imageUrl;
   String? get imageUrl => _imageUrl;
 
+  bool _first = false;
+  bool get first => _first;
+
   SignInProvider() {
     checkSignInUser();
   }
@@ -51,7 +54,7 @@ class SignInProvider extends ChangeNotifier {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     _isSignedIn = sharedPreferences.getBool("signed_in") ?? false;
-    print('holitas $_isSignedIn');
+
     notifyListeners();
   }
 
@@ -244,12 +247,13 @@ class SignInProvider extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firebaseToken = 'AIzaSyD7CnurlJ3GvudLy7EzaH9RqV4mr_E2YFM';
 
-  Future<String?> createUser(String email, String password) async {
+  Future<String?> createUser(String email, String password, bool first) async {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password
     };
     _isSignedIn = true;
+    _first = first;
     final url =
         Uri.https(_baseUrl, '/v1/accounts:signUp', {'key': _firebaseToken});
 

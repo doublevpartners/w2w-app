@@ -215,8 +215,9 @@ class _LoginForm extends StatelessWidget {
                         // await Future.delayed(Duration(seconds: 2));
 
                         //TODO: Validar si el login es correcto
-                        final String? errorMessage = await authService
-                            .createUser(loginForm.email, loginForm.password);
+                        final String? errorMessage =
+                            await authService.createUser(
+                                loginForm.email, loginForm.password, true);
 
                         if (errorMessage == null) {
                           // Navigator.pushReplacementNamed(context, 'slideshow');
@@ -323,7 +324,7 @@ class _LoginForm extends StatelessWidget {
             actions: [
               MaterialButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'login'),
+                    Navigator.restorablePushNamed(context, 'login'),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 15),
