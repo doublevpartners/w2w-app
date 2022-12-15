@@ -32,39 +32,38 @@ class CitiesScreen extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingButtonHome(size: size),
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.zero,
-              child: Stack(
-                children: [
-                  _BodyCities(
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: EdgeInsets.zero,
+            child: Stack(
+              children: [
+                _BodyCities(
+                  size: size,
+                  sp: sp,
+                  city: city,
+                ),
+                Positioned(
+                  top: size.height * 0.4,
+                  child: ItemSlider(
                     size: size,
-                    sp: sp,
                     city: city,
                   ),
-                  Positioned(
-                    top: size.height * 0.4,
-                    child: ItemSlider(
-                      size: size,
-                      city: city,
-                    ),
-                  ),
-                  Positioned(
-                    top: size.height * 0.7,
-                    right: size.width * 0,
-                    child:
-                        // ignore: todo
-                        sp.isSignedIn == false
-                            ? ButtonLogin(
-                                size: size,
-                                sp: sp,
-                              )
-                            : Container(),
-                    // ButtonLogin(size: size, sp: sp),
-                  ),
-                ],
-              ),
+                ),
+                Positioned(
+                  top: size.height * 0.7,
+                  right: size.width * 0,
+                  child:
+                      // ignore: todo
+                      sp.isSignedIn == false
+                          ? ButtonLogin(
+                              size: size,
+                              sp: sp,
+                            )
+                          : Container(),
+                  // ButtonLogin(size: size, sp: sp),
+                ),
+              ],
             ),
           )),
     );
@@ -92,11 +91,11 @@ class _BodyCities extends StatelessWidget {
           Container(
             padding: EdgeInsets.zero,
             margin: EdgeInsets.only(
-                top: size.height * 0.1,
-                left: size.height * 0.03,
-                bottom: size.height * 0.25),
-            width: size.width * 0.88,
-            height: size.height * 0.44,
+                top: size.height * 0.12,
+                left: size.height * 0.027,
+                bottom: size.height * 0.001),
+            width: size.width * 0.9,
+            height: size.height * 0.4,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(size.width * 100),
               color: const Color.fromARGB(194, 255, 255, 255),
@@ -105,7 +104,7 @@ class _BodyCities extends StatelessWidget {
           Positioned(
             top: size.height * 0.23,
             child: Container(
-              padding: EdgeInsets.only(left: size.width * 0.25),
+              padding: EdgeInsets.only(left: size.width * 0.245),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -116,7 +115,12 @@ class _BodyCities extends StatelessWidget {
                       city,
                       textAlign: TextAlign.end,
                       style: GoogleFonts.poppins(
-                          textStyle: Theme.of(context).textTheme.headline2),
+                        textStyle: const TextStyle(
+                          color: AppTheme.secondary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 55,
+                        ),
+                      ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -128,7 +132,7 @@ class _BodyCities extends StatelessWidget {
           ),
           Positioned(
               top: size.height * 0.305,
-              left: size.width * 0.27,
+              left: size.width * 0.235,
               child: Container(
                 padding: EdgeInsets.only(left: size.width * 0.04, top: 0),
                 child: AutoSizeText(

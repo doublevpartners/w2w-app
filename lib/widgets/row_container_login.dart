@@ -24,15 +24,17 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final double radius = 20;
     return Row(
       key: _scaffoldKey,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         MaterialButton(
+          height: size.height * 0.065,
           disabledColor: Colors.grey,
           elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius)),
           color: Colors.white,
           onPressed: () async {
             // * Version 1.0.0
@@ -49,18 +51,19 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
           },
           child: SvgPicture.asset(
             Config.google_icon,
-            height: size.height * 0.062,
-            fit: BoxFit.none,
+            height: size.height * 0.04,
+            fit: BoxFit.scaleDown,
           ),
         ),
-        const SizedBox(
-          width: 20,
+        SizedBox(
+          width: size.width * 0.04,
         ),
         MaterialButton(
+          height: size.height * 0.065,
           disabledColor: Colors.grey,
           elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius)),
           color: Colors.white,
           onPressed: () {
             handleFacebookSignIn();
@@ -71,14 +74,15 @@ class _RowContainerLoginState extends State<RowContainerLogin> {
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(
-          width: 20,
+        SizedBox(
+          width: size.width * 0.04,
         ),
         MaterialButton(
+          height: size.height * 0.065,
           disabledColor: Colors.grey,
           elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius)),
           color: Colors.white,
           onPressed: () {},
           child: SvgPicture.asset(

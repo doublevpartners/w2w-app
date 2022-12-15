@@ -1,3 +1,5 @@
+export 'package:w2w_app/screens/forgot_password_screen.dart';
+
 export 'package:w2w_app/screens/check_auth_screen.dart';
 export 'package:w2w_app/screens/cities_screen.dart';
 export 'package:w2w_app/screens/entradas_screen.dart';

@@ -86,7 +86,11 @@ class _ListItem extends StatelessWidget {
                                   fontWeight: FontWeight.w700,
                                   fontSize: 17,
                                 )
-                              : Theme.of(context).textTheme.headline6,
+                              : const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                ),
                           textAlign: TextAlign.center,
                           maxLines:
                               nameItems[index] == 'Must de la ciudad' ? 2 : 1),

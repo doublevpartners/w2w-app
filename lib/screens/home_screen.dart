@@ -15,12 +15,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final sp = context.read<SignInProvider>();
     final size = MediaQuery.of(context).size;
-    final authService = context.read<SignInProvider>();
-
-    Future joder() async {
-      final token = await authService.readToken();
-      return token;
-    }
 
     // final lol = joder().then((value) => print('Este es el token $value'));
 
@@ -71,62 +65,64 @@ class _BodyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Positioned(
-                // top: size.height * 0.01,
-                left: size.width * 0.08,
-                child: SvgPicture.asset(
-                  'assets/home.svg',
-                  width: size.width * 0.3,
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Positioned(
+              // top: size.height * 0.01,
+              left: size.width * 0.08,
+              child: SvgPicture.asset(
+                'assets/home.svg',
+                width: size.width * 0.3,
+              ),
+            ),
+            Positioned(
+              // top: size.height * 0.01,
+              left: size.width * 0.4,
+              child: const AutoSizeText(
+                'World',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 32,
+                ),
+                textAlign: TextAlign.end,
+              ),
+            ),
+            Positioned(
+              top: size.height * 0.04,
+              left: size.width * 0.4,
+              child: const AutoSizeText(
+                'To Walk',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 60,
                 ),
               ),
-              Positioned(
-                // top: size.height * 0.01,
-                left: size.width * 0.4,
-                child: AutoSizeText(
-                  'World',
-                  style: Theme.of(context).textTheme.headline4,
-                  textAlign: TextAlign.end,
-                ),
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              _ButtonsHome(
+                size: size,
+                svg: 'assets/home_location.svg',
+                text: 'Todas las Rutas',
+                screen: const CitiesScreen(city: 'Madrid'),
               ),
-              Positioned(
-                top: size.height * 0.04,
-                left: size.width * 0.4,
-                child: Column(
-                  children: [
-                    AutoSizeText(
-                      'To Walk',
-                      style: Theme.of(context).textTheme.headline1,
-                    )
-                  ],
-                ),
+              SizedBox(
+                width: size.width * 0.2,
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                _ButtonsHome(
-                  size: size,
-                  svg: 'assets/home_location.svg',
-                  text: 'Todas las Rutas',
-                  screen: const CitiesScreen(city: 'Madrid'),
-                ),
-                SizedBox(
-                  width: size.width * 0.2,
-                ),
-                _ButtonsHome(
-                  size: size,
-                  svg: 'assets/home_person.svg',
-                  text: 'Cerca de ti',
-                  screen: const CitiesScreen(city: 'Madrid'),
-                )
-              ]),
-              _SearchInput(size: size),
-            ],
-          ),
-        ],
-      ),
+              _ButtonsHome(
+                size: size,
+                svg: 'assets/home_person.svg',
+                text: 'Cerca de ti',
+                screen: const CitiesScreen(city: 'Madrid'),
+              )
+            ]),
+            _SearchInput(size: size),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -143,7 +139,7 @@ class _ButtonsHome extends StatelessWidget {
   final Size size;
   final String svg;
   final String text;
-  final screen;
+  final dynamic screen;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +163,7 @@ class _ButtonsHome extends StatelessWidget {
         ),
         AutoSizeText(
           text,
-          style: const TextStyle(fontSize: 15),
+          style: const TextStyle(fontSize: 15, color: AppTheme.third),
         )
       ]),
     );
@@ -254,7 +250,7 @@ class _SearchInputState extends State<_SearchInput> {
             height: 10,
           ),
           if (search.text != '')
-            display_list.length == 0
+            display_list.isEmpty
                 ? const Center(
                     child: Text('No se encontro ningun resultado'),
                   )

@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
         'splashscreen': (_) => const SplashScreen(),
         'onboarding': (_) => const OnboardingScreen(),
         'routesscreen': (_) => const RouteScreen(),
+        'forgot': (_) => const ForgotPasswordScreen(),
       },
       scaffoldMessengerKey: NotificationService.messegarKey,
       theme: AppTheme.lightTheme,

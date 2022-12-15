@@ -16,7 +16,6 @@ class CardContainerLogin extends StatelessWidget {
           left: size.width * 0.02,
           right: size.width * 0.02,
           bottom: size.height * 0.02),
-      decoration: _createCardShape(),
       child: child,
     );
   }

@@ -25,10 +25,21 @@ class HeaderLogin extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
-          AutoSizeText(header1, style: Theme.of(context).textTheme.headline3),
+          AutoSizeText(
+            header1,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 36,
+            ),
+          ),
           AutoSizeText(
             header2 ?? '',
-            style: Theme.of(context).textTheme.headline5,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+            ),
             textAlign: TextAlign.center,
           ),
         ]),

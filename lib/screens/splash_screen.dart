@@ -63,10 +63,12 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            AutoSizeText(
-              'Se tu Propio Guia',
-              style: Theme.of(context).textTheme.headline5,
-            ),
+            const AutoSizeText('Se tu Propio Guia',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                )),
             const SizedBox(
               height: 50,
             ),

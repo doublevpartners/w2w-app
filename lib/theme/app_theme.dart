@@ -7,38 +7,6 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary,
-    textTheme: const TextTheme(
-      headline1: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-        fontSize: 60,
-      ),
-      headline2: TextStyle(
-        color: secondary,
-        fontWeight: FontWeight.w700,
-        fontSize: 55,
-      ),
-      headline3: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w800,
-        fontSize: 36,
-      ),
-      headline4: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w600,
-        fontSize: 32,
-      ),
-      headline5: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 24,
-      ),
-      headline6: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 20,
-      ),
-    ),
     disabledColor: Colors.grey,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: secondary,
