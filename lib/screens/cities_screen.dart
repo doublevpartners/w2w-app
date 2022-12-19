@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:w2w_app/config/config.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 
 import '../providers/providers.dart';
@@ -91,11 +92,11 @@ class _BodyCities extends StatelessWidget {
           Container(
             padding: EdgeInsets.zero,
             margin: EdgeInsets.only(
-                top: size.height * 0.12,
+                top: size.height * 0.10,
                 left: size.height * 0.027,
                 bottom: size.height * 0.001),
             width: size.width * 0.9,
-            height: size.height * 0.4,
+            height: size.height * 0.41,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(size.width * 100),
               color: const Color.fromARGB(194, 255, 255, 255),
@@ -176,7 +177,7 @@ class _UnclockCities extends StatelessWidget {
                     spreadRadius: 1,
                     offset: Offset(1, 5))
               ]),
-          child: SvgPicture.asset('assets/unclock.svg')),
+          child: SvgPicture.asset(Config.unlockIcon)),
     );
   }
 }

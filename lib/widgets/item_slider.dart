@@ -40,13 +40,15 @@ class _ListItem extends StatelessWidget {
       'Entradas',
       'Must de la ciudad'
     ];
-    List<dynamic> routeItems = const [
-      RouteScreen(),
-      RestaurantScreen(),
-      EventsScreen(),
-      TourScreen(),
-      EntradasScreen(),
-      MustScreen(),
+    List<dynamic> routeItems = [
+      RouteScreen(
+        text: city,
+      ),
+      const RestaurantScreen(),
+      const EventsScreen(),
+      const TourScreen(),
+      const EntradasScreen(),
+      const MustScreen(),
     ];
     return ListView.builder(
         scrollDirection: Axis.horizontal,

@@ -26,7 +26,7 @@ class _OtpEmailScreenState extends State<OtpEmailScreen> {
             FloatingActionButtonLocation.miniCenterFloat,
         floatingActionButton: MaterialButton(
           onPressed: () =>
-              isActive ? nextScreenReplace(context, const HomeScreen()) : null,
+              isActive ? nextStackRoute(context, const HomeScreen()) : null,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
           child: Container(

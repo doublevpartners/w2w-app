@@ -7,8 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/providers/providers.dart';
+import 'package:w2w_app/screens/check_auth_screen.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 import 'package:w2w_app/ui/input_decorations.dart';
+import 'package:w2w_app/utils/next_screen.dart';
 import 'package:w2w_app/widgets/widgets.dart';
 
 import '../utils/snack_bars.dart';
@@ -399,7 +401,7 @@ class _LoginFormState extends State<_LoginForm> {
             actions: [
               MaterialButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'checking'),
+                    nextStackRoute(context, const CheckAuthScreen()),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 15),

@@ -68,27 +68,31 @@ class SignInProvider extends ChangeNotifier {
 
   // sign in with facebook
   Future signInWithFacebook() async {
-    final LoginResult result = await facebookAuth.login(
-      permissions: [
-        'public_profile',
-        'email',
-        'pages_show_list',
-        'pages_messaging',
-        'pages_manage_metadata'
-      ],
-    );
-
+    LoginResult? result;
+    try {
+      result = await facebookAuth.login(
+        permissions: [
+          'public_profile',
+          'email',
+          'pages_show_list',
+          'pages_messaging',
+          'pages_manage_metadata'
+        ],
+      );
+    } catch (e) {
+      print(e);
+    }
     // getting the profile
     // final graphResponse = await http.get(Uri.parse(
     //     'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${result.accessToken!.token}'));
 
     // final profile = jsonDecode(graphResponse.body);
 
-    if (result.status == LoginStatus.success) {
+    if (result?.status == LoginStatus.success) {
       try {
         final userData = await facebookAuth.getUserData();
         final OAuthCredential credential =
-            FacebookAuthProvider.credential(result.accessToken!.token);
+            FacebookAuthProvider.credential(result!.accessToken!.token);
 
         await firebaseAuth.signInWithCredential(credential);
 

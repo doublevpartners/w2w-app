@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +48,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Positioned(
               top: size.height * 0.75,
-              left: size.width * 0.4,
+              left: size.width * 0.425,
               child: FloatingButtonHome(size: size),
             )
           ],
@@ -144,7 +145,7 @@ class _ButtonsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: size.height * 0.35),
+      margin: EdgeInsets.only(top: size.height * 0.31),
       child: Column(children: [
         MaterialButton(
           padding: EdgeInsets.all(size.height * 0.01),
@@ -218,13 +219,6 @@ class _SearchInputState extends State<_SearchInput> {
         vertical: 0,
       ),
       width: widget.size.width * 0.8,
-      decoration: search.text == ''
-          ? const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: AppTheme.third, width: 2),
-              ),
-            )
-          : const BoxDecoration(),
       child: Column(
         children: [
           TextFormField(
@@ -235,28 +229,51 @@ class _SearchInputState extends State<_SearchInput> {
             onTap: () {},
             // showSearch(context: context, delegate: CitySearchDelegate()),
             cursorColor: AppTheme.third,
+            autocorrect: false,
             autofocus: false,
+            enableSuggestions: false,
             style: const TextStyle(color: AppTheme.third),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: 'Elige tu Ciudad',
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.search,
                 color: AppTheme.third,
                 size: 25,
               ),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    FocusScope.of(context).unfocus();
+                    search.text = '';
+                  });
+                },
+                icon: Icon(
+                  search.text != '' ? Icons.close : null,
+                  color: AppTheme.third,
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            height: 10,
+          if (search.text == '')
+            Divider(
+              height: MediaQuery.of(context).size.height * 0.035,
+              thickness: 2,
+              color: AppTheme.third,
+            ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.003,
           ),
           if (search.text != '')
             display_list.isEmpty
                 ? const Center(
-                    child: Text('No se encontro ningun resultado'),
+                    child: Text(
+                      'No se encontro ningun resultado',
+                      style: TextStyle(color: AppTheme.third),
+                    ),
                   )
                 : Container(
                     padding: EdgeInsets.zero,
-                    height: MediaQuery.of(context).size.height * 0.19,
+                    height: MediaQuery.of(context).size.height * 0.187,
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -274,7 +291,9 @@ class _SearchInputState extends State<_SearchInput> {
                                     nextScreen(context,
                                         CitiesScreen(city: search.text));
 
-                                    search.clear();
+                                    setState(() {
+                                      search.text = '';
+                                    });
                                   },
                                   child: Text(
                                     display_list[index].name_city!,

@@ -81,7 +81,10 @@ flutter:
   assets:
     - assets/onboarding/
     - assets/navbar/
+    - assets/places/
     - assets/icons/signup/
+    - assets/icons/routes/
+    - assets/screens/
     - assets/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
