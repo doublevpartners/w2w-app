@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:w2w_app/screens/screens.dart';
 import 'package:w2w_app/services/auth_services.dart';
@@ -19,19 +20,19 @@ class EndDrawerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: size.height * 0.56),
+      padding: EdgeInsets.only(bottom: size.height * 0.6),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(250),
-          topLeft: Radius.circular(250),
-          bottomRight: Radius.circular(40),
+          bottomRight: Radius.elliptical(130, 77),
+          bottomLeft: Radius.circular(300),
+          topLeft: Radius.elliptical(120, 200),
         ),
         child: SizedBox(
           width: size.width * 0.75,
           child: Drawer(
             backgroundColor: AppTheme.primary,
             child: Container(
-              margin: EdgeInsets.only(top: size.height * 0.08),
+              margin: EdgeInsets.only(top: size.height * 0.05),
               padding: EdgeInsets.only(left: size.width * 0.2),
               child: Column(children: [
                 Row(
@@ -39,7 +40,7 @@ class EndDrawerApp extends StatelessWidget {
                     NavigationApp(
                       size: size,
                       text: 'Mi perfil',
-                      icon: Icons.person_outline_outlined,
+                      icon: 'assets/navbar/user.svg',
                       screen: const ProfileScreen(),
                     ),
                     const MenuButton(isOpen: false),
@@ -47,25 +48,26 @@ class EndDrawerApp extends StatelessWidget {
                 ),
                 NavigationApp(
                   size: size,
-                  text: 'Histórico de Rutas',
-                  icon: Icons.calendar_today_outlined,
+                  text: 'Histórico de rutas',
+                  icon: 'assets/navbar/history.svg',
                   screen: const RouteHistoryScreen(),
                 ),
                 NavigationApp(
                   size: size,
                   text: 'Favoritos',
-                  icon: Icons.wallet,
+                  icon: 'assets/navbar/favorite.svg',
                   screen: const FavouriteScreen(),
                 ),
                 NavigationApp(
                   size: size,
                   text: 'Notificaciones',
-                  icon: Icons.notifications_none,
+                  icon: 'assets/navbar/notification.svg',
+                  screen: const NotificationScreen(),
                 ),
                 NavigationApp(
                   size: size,
                   text: 'Cerrar sesión',
-                  icon: Icons.logout,
+                  icon: 'assets/navbar/logout.svg',
                 )
               ]),
             ),
@@ -87,17 +89,14 @@ class NavigationApp extends StatelessWidget {
 
   final Size size;
   final String text;
-  final IconData icon;
+  final String icon;
   final screen;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: AppTheme.third,
-        ),
+        SvgPicture.asset(icon),
         SizedBox(
           width: size.width * 0.01,
         ),

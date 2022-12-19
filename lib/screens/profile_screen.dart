@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:w2w_app/widgets/app_bar_app.dart';
 
 import '../providers/sign_in_provider.dart';
 import '../widgets/widgets.dart';
@@ -11,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final sp = context.read<SignInProvider>();
+    final sp = Provider.of<SignInProvider>(context, listen: false);
     return Scaffold(
       endDrawer: sp.isSignedIn == true ? EndDrawerApp(size: size) : null,
       appBar: AppBarApp(sp: sp),

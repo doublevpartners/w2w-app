@@ -42,6 +42,9 @@ class SignInProvider extends ChangeNotifier {
   String? _imageUrl;
   String? get imageUrl => _imageUrl;
 
+  bool _first = false;
+  bool get first => _first;
+
   SignInProvider() {
     checkSignInUser();
   }
@@ -51,6 +54,7 @@ class SignInProvider extends ChangeNotifier {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     _isSignedIn = sharedPreferences.getBool("signed_in") ?? false;
+
     notifyListeners();
   }
 
@@ -64,27 +68,31 @@ class SignInProvider extends ChangeNotifier {
 
   // sign in with facebook
   Future signInWithFacebook() async {
-    final LoginResult result = await facebookAuth.login(
-      permissions: [
-        'public_profile',
-        'email',
-        'pages_show_list',
-        'pages_messaging',
-        'pages_manage_metadata'
-      ],
-    );
-
+    LoginResult? result;
+    try {
+      result = await facebookAuth.login(
+        permissions: [
+          'public_profile',
+          'email',
+          'pages_show_list',
+          'pages_messaging',
+          'pages_manage_metadata'
+        ],
+      );
+    } catch (e) {
+      print(e);
+    }
     // getting the profile
     // final graphResponse = await http.get(Uri.parse(
     //     'https://graph.facebook.com/v2.12/me?fields=name,picture.width(800).height(800),first_name,last_name,email&access_token=${result.accessToken!.token}'));
 
     // final profile = jsonDecode(graphResponse.body);
 
-    if (result.status == LoginStatus.success) {
+    if (result?.status == LoginStatus.success) {
       try {
         final userData = await facebookAuth.getUserData();
         final OAuthCredential credential =
-            FacebookAuthProvider.credential(result.accessToken!.token);
+            FacebookAuthProvider.credential(result!.accessToken!.token);
 
         await firebaseAuth.signInWithCredential(credential);
 
@@ -243,12 +251,13 @@ class SignInProvider extends ChangeNotifier {
   final String _baseUrl = 'identitytoolkit.googleapis.com';
   final String _firebaseToken = 'AIzaSyD7CnurlJ3GvudLy7EzaH9RqV4mr_E2YFM';
 
-  Future<String?> createUser(String email, String password) async {
+  Future<String?> createUser(String email, String password, bool first) async {
     final Map<String, dynamic> authData = {
       'email': email,
       'password': password
     };
     _isSignedIn = true;
+    _first = first;
     final url =
         Uri.https(_baseUrl, '/v1/accounts:signUp', {'key': _firebaseToken});
 

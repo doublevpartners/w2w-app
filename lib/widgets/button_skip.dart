@@ -13,30 +13,38 @@ class ButtonSkip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      disabledColor: Colors.red,
       padding: EdgeInsets.zero,
-      onPressed: () => nextScreenReplace(context, const HomeScreen()),
+      onPressed: () {
+        print('click');
+        Navigator.pushReplacementNamed(context, 'splashscreen');
+      },
       child: Container(
         margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.width * 0.08,
-            left: MediaQuery.of(context).size.width * 0.08),
+            top: MediaQuery.of(context).size.width * 0.15,
+            left: MediaQuery.of(context).size.width * 0.8),
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.0,
             vertical: MediaQuery.of(context).size.height * 0.01),
         width: MediaQuery.of(context).size.width * 0.2,
         decoration: const BoxDecoration(
-          gradient:
-              LinearGradient(colors: [AppTheme.primary, AppTheme.secondary]),
-          shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.0),
-          ),
-        ),
+            gradient:
+                LinearGradient(colors: [AppTheme.primary, AppTheme.secondary]),
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.01,
+            ),
             SvgPicture.asset(
               'assets/skip_icon.svg',
               fit: BoxFit.scaleDown,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.01,
             ),
             const Text(
               'Skip',

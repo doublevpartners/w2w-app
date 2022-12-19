@@ -100,15 +100,19 @@ class _BodySplash extends StatelessWidget {
         Container(
           margin:
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-          child: Column(children: [
+          child: Column(children: const [
             AutoSizeText(
               'Se tu Propio Guia',
-              style: Theme.of(context).textTheme.headline5,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+              ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 50,
             ),
-            const SpinKitCircle(
+            SpinKitCircle(
               color: AppTheme.third,
             ),
           ]),

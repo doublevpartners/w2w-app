@@ -13,11 +13,9 @@ class CardContainerRegister extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: size.width * 0.03),
       padding: EdgeInsets.only(
-          top: size.height * 0.02,
-          left: size.width * 0.02,
-          right: size.width * 0.02,
-          bottom: size.height * 0.02),
-      decoration: _createCardShape(),
+        left: size.width * 0.02,
+        right: size.width * 0.02,
+      ),
       child: child,
     );
   }

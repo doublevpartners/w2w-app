@@ -14,7 +14,7 @@ class RegisterBackground extends StatelessWidget {
       child: SingleChildScrollView(
           child: Column(children: [
         const HeaderLogin(
-          header1: 'Crear una Cuenta',
+          header1: 'Crear cuenta',
         ),
         this.child
       ])),

@@ -23,7 +23,8 @@ class ButtonLogin extends StatelessWidget {
         Navigator.pushReplacementNamed(context, 'login');
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        padding:
+            const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 18),
         decoration: const BoxDecoration(
           gradient: LinearGradient(colors: [
             AppTheme.primary,
@@ -36,10 +37,28 @@ class ButtonLogin extends StatelessWidget {
               topLeft: Radius.circular(25),
               bottomLeft: Radius.circular(25)),
         ),
-        child: const AutoSizeText(
-          'Login',
-          style: TextStyle(color: AppTheme.third, fontSize: 15),
-          textAlign: TextAlign.center,
+        child: Container(
+          padding: EdgeInsets.zero,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(
+                Icons.login,
+                color: Colors.white,
+              ),
+              SizedBox(
+                width: size.width * 0.03,
+              ),
+              const AutoSizeText(
+                'Login',
+                style: TextStyle(color: AppTheme.third, fontSize: 15),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                width: size.width * 0.03,
+              ),
+            ],
+          ),
         ),
       ),
     );
