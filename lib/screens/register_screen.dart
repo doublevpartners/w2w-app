@@ -239,49 +239,49 @@ class _LoginFormState extends State<_LoginForm> {
                 elevation: 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(55)),
-                onPressed: () => Platform.isAndroid
-                    ? displayDialogAndroid(context)
-                    : displayDialogIOS(context),
-                // onPressed: loginForm.isLoading
-                //     ? null
-                //     : () async {
-                //         // quito teclado
-                //         if (isConfirmPassword &&
-                //             isEmail &&
-                //             isName &&
-                //             isPassword) {
-                //           FocusScope.of(context).unfocus();
-                //           final authService = Provider.of<SignInProvider>(
-                //               context,
-                //               listen: false);
+                // onPressed: () => Platform.isAndroid
+                //     ? displayDialogAndroid(context)
+                //     : displayDialogIOS(context),
+                onPressed: loginForm.isLoading
+                    ? null
+                    : () async {
+                        // quito teclado
+                        if (isConfirmPassword &&
+                            isEmail &&
+                            isName &&
+                            isPassword) {
+                          FocusScope.of(context).unfocus();
+                          final authService = Provider.of<SignInProvider>(
+                              context,
+                              listen: false);
 
-                //           //TODO: Login Form
-                //           if (!loginForm.isValidForm()) return;
+                          //TODO: Login Form
+                          if (!loginForm.isValidForm()) return;
 
-                //           loginForm.isLoading = true;
+                          loginForm.isLoading = true;
 
-                //           // await Future.delayed(Duration(seconds: 2));
+                          // await Future.delayed(Duration(seconds: 2));
 
-                //           //TODO: Validar si el login es correcto
-                //           final String? errorMessage =
-                //               await authService.createUser(
-                //                   loginForm.email, loginForm.password, true);
+                          //TODO: Validar si el login es correcto
+                          final String? errorMessage =
+                              await authService.createUser(
+                                  loginForm.email, loginForm.password, true);
 
-                //           if (errorMessage == null) {
-                //             // Navigator.pushReplacementNamed(context, 'slideshow');
-                //             Platform.isAndroid
-                //                 ? displayDialogAndroid(context)
-                //                 : displayDialogIOS(context);
-                //           } else {
-                //             // TODO: mostrar error en pantalla
-                //             print(errorMessage);
-                //             // ignore: use_build_context_synchronously
-                //             openSnackBar(
-                //                 context, 'Correo ya existente', Colors.red);
-                //             loginForm.isLoading = false;
-                //           }
-                //         }
-                //       },
+                          if (errorMessage == null) {
+                            // Navigator.pushReplacementNamed(context, 'slideshow');
+                            Platform.isAndroid
+                                ? displayDialogAndroid(context)
+                                : displayDialogIOS(context);
+                          } else {
+                            // TODO: mostrar error en pantalla
+                            print(errorMessage);
+                            // ignore: use_build_context_synchronously
+                            openSnackBar(
+                                context, 'Correo ya existente', Colors.red);
+                            loginForm.isLoading = false;
+                          }
+                        }
+                      },
                 child: Container(
                     width: double.infinity,
                     decoration: !loginForm.isLoading
@@ -385,9 +385,9 @@ class _LoginFormState extends State<_LoginForm> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Text(
+              const Text(
                 '¡Felicitaciones!',
-                style: Theme.of(context).textTheme.headline4,
+                style: TextStyle(color: AppTheme.third, fontSize: 30),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -396,12 +396,12 @@ class _LoginFormState extends State<_LoginForm> {
               const Text(
                 'Ya estás listo para iniciar sesión .',
                 textAlign: TextAlign.center,
+                style: TextStyle(color: AppTheme.third),
               )
             ]),
             actions: [
               MaterialButton(
-                onPressed: () =>
-                    nextStackRoute(context, const CheckAuthScreen()),
+                onPressed: () => Navigator.pop(context),
                 child: Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 15),
