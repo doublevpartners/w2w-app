@@ -7,7 +7,10 @@ class RouteHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('RouteHistoryScreen'),
+        child: Text(
+          'RouteHistoryScreen',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
     );
   }

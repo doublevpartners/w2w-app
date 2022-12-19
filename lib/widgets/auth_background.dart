@@ -14,7 +14,7 @@ class AuthBackgroud extends StatelessWidget {
       child: SingleChildScrollView(
           child: Column(children: [
         const HeaderLogin(
-          header1: 'World To Walk',
+          header1: '¡Bienvenido!',
           header2: 'Tenemos las mejores\nrutas para ti!',
         ),
         this.child

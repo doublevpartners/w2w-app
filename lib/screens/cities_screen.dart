@@ -1,13 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:w2w_app/config/config.dart';
 import 'package:w2w_app/theme/app_theme.dart';
 
 import '../providers/providers.dart';
 import '../widgets/widgets.dart';
 
 class CitiesScreen extends StatelessWidget {
-  const CitiesScreen({Key? key}) : super(key: key);
+  const CitiesScreen({Key? key, required this.city}) : super(key: key);
+  final String city;
 
   @override
   Widget build(BuildContext context) {
@@ -29,34 +33,38 @@ class CitiesScreen extends StatelessWidget {
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingButtonHome(size: size),
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.zero,
-              child: Stack(
-                children: [
-                  _BodyCities(size: size, sp: sp),
-                  Positioned(
-                    top: size.height * 0.4,
-                    child: ItemSlider(
-                      size: size,
-                    ),
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            padding: EdgeInsets.zero,
+            child: Stack(
+              children: [
+                _BodyCities(
+                  size: size,
+                  sp: sp,
+                  city: city,
+                ),
+                Positioned(
+                  top: size.height * 0.4,
+                  child: ItemSlider(
+                    size: size,
+                    city: city,
                   ),
-                  Positioned(
-                    top: size.height * 0.7,
-                    right: size.width * 0,
-                    child:
-                        // ignore: todo
-                        sp.isSignedIn == false
-                            ? ButtonLogin(
-                                size: size,
-                                sp: sp,
-                              )
-                            : Container(),
-                    // ButtonLogin(size: size, sp: sp),
-                  ),
-                ],
-              ),
+                ),
+                Positioned(
+                  top: size.height * 0.7,
+                  right: size.width * 0,
+                  child:
+                      // ignore: todo
+                      sp.isSignedIn == false
+                          ? ButtonLogin(
+                              size: size,
+                              sp: sp,
+                            )
+                          : Container(),
+                  // ButtonLogin(size: size, sp: sp),
+                ),
+              ],
             ),
           )),
     );
@@ -64,10 +72,12 @@ class CitiesScreen extends StatelessWidget {
 }
 
 class _BodyCities extends StatelessWidget {
+  final String city;
   const _BodyCities({
     Key? key,
     required this.size,
     required this.sp,
+    required this.city,
   }) : super(key: key);
 
   final Size size;
@@ -77,48 +87,68 @@ class _BodyCities extends StatelessWidget {
   Widget build(BuildContext context) {
     return Opacity(
       opacity: 0.9,
-      child: Container(
-          margin: EdgeInsets.only(
-              top: size.height * 0.1,
-              left: size.height * 0.03,
-              bottom: size.height * 0.25),
-          width: size.width * 0.88,
-          height: size.height * 0.41,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(size.width * 100),
-            color: AppTheme.third,
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.only(
+                top: size.height * 0.10,
+                left: size.height * 0.027,
+                bottom: size.height * 0.001),
+            width: size.width * 0.9,
+            height: size.height * 0.41,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(size.width * 100),
+              color: const Color.fromARGB(194, 255, 255, 255),
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 300,
-                alignment: Alignment.center,
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Madrid',
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline2,
+          Positioned(
+            top: size.height * 0.23,
+            child: Container(
+              padding: EdgeInsets.only(left: size.width * 0.245),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.zero,
+                    width: size.width * 0.51,
+                    child: AutoSizeText(
+                      city,
+                      textAlign: TextAlign.end,
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          color: AppTheme.secondary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 55,
+                        ),
                       ),
-                      const _UnclockCities(),
-                    ],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
                   ),
-                ),
+                  const _UnclockCities(),
+                ],
               ),
-              const AutoSizeText(
-                'Descubre \n las Mejores Rutas',
-                style: TextStyle(
-                    color: AppTheme.secondary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w300),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              )
-            ],
-          )),
+            ),
+          ),
+          Positioned(
+              top: size.height * 0.305,
+              left: size.width * 0.235,
+              child: Container(
+                padding: EdgeInsets.only(left: size.width * 0.04, top: 0),
+                child: AutoSizeText(
+                  'Descubre \n las mejores rutas',
+                  style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                          color: AppTheme.secondary,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300)),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                ),
+              ))
+        ],
+      ),
     );
   }
 }
@@ -135,16 +165,19 @@ class _UnclockCities extends StatelessWidget {
       minWidth: 13,
       shape: const CircleBorder(),
       child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient:
-                LinearGradient(colors: [AppTheme.primary, AppTheme.secondary])),
-        child: const Icon(
-          Icons.lock,
-          color: AppTheme.third,
-        ),
-      ),
+          padding: const EdgeInsets.all(15),
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                  colors: [AppTheme.primary, AppTheme.secondary]),
+              boxShadow: [
+                BoxShadow(
+                    color: AppTheme.secondary,
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                    offset: Offset(1, 5))
+              ]),
+          child: SvgPicture.asset(Config.unlockIcon)),
     );
   }
 }
